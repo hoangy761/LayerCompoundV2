@@ -24,7 +24,13 @@ const Footer = () => {
             </Button>
           </li>
           <li>
-            <Button text className="underline" to="#" icon={<GoogleDocIcon />}>
+            <Button
+              text
+              className="underline"
+              target="_href"
+              href="https://yizy.gitbook.io/layercompound"
+              icon={<GoogleDocIcon />}
+            >
               Docs
             </Button>
           </li>

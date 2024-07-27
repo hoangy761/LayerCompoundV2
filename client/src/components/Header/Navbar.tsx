@@ -4,6 +4,7 @@ import {
   Bitcoin03Icon,
   Cancel01Icon,
   DataRecoveryIcon,
+  GameboyIcon,
   Menu01Icon,
   PromotionIcon,
 } from 'hugeicons-react';
@@ -21,6 +22,7 @@ const Navbar = () => {
     { to: '/dao', name: 'Dao', icon: <PromotionIcon /> },
     { to: '/staking', name: 'Staking', icon: <Bitcoin03Icon /> },
     { to: '/stats', name: 'Stats', icon: <AnalysisTextLinkIcon /> },
+    { to: '/game', name: 'Game', icon: <GameboyIcon /> },
   ];
   const path = useLocation();
   console.log(path.pathname);
