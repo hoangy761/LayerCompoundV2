@@ -4,4 +4,5 @@ export enum StyleSnakeEnum {
   EYE = 'EYE',
   SHADOW = 'SHADOW',
   SCLERA = 'SCLERA',
+  POINT = 'POINT',
 }

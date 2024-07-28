@@ -1,7 +1,7 @@
 import { EYE_ANGLE, EYE_DISTANCE, INIT_SNAKE_SIZE } from '../constants';
 import { StyleSnakeEnum } from '../enums';
 import { Position } from '../interfaces';
-import { getPointOnCircumference } from '../ultis';
+import { drawCircle, getPointOnCircumference } from '../ultis';
 import { Snake } from './Snake';
 
 export class Eye {
@@ -39,11 +39,12 @@ export class Eye {
     //   x: this.snake.positionCollision.x,
     //   y: this.snake.positionCollision.y,
     // };
-
-    this.snake.game.screen.drawCircle(scleraLeftPos, StyleSnakeEnum.SCLERA);
-    this.snake.game.screen.drawCircle(scleraRightPos, StyleSnakeEnum.SCLERA);
-    this.snake.game.screen.drawCircle(eyeLeftPos, StyleSnakeEnum.EYE);
-    this.snake.game.screen.drawCircle(eyeRightPos, StyleSnakeEnum.EYE);
-    // this.snake.game.screen.drawCircle(eyeCenter, StyleSnakeEnum.EYE);
+    if (this.snake.game.ctx) {
+      drawCircle(this.snake.game, this.snake.game.ctx, scleraLeftPos, StyleSnakeEnum.SCLERA);
+      this.snake.game.screen.drawCircle(scleraRightPos, StyleSnakeEnum.SCLERA);
+      this.snake.game.screen.drawCircle(eyeLeftPos, StyleSnakeEnum.EYE);
+      this.snake.game.screen.drawCircle(eyeRightPos, StyleSnakeEnum.EYE);
+      // this.snake.game.screen.drawCircle(eyeCenter, StyleSnakeEnum.EYE);
+    }
   }
 }

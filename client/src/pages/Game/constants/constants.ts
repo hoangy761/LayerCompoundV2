@@ -8,6 +8,10 @@ export const GAME_WIDTH = 3200;
 export const SCREEN_WIDTH = screen.width;
 export const SCREEN_HEIGHT = screen.height;
 
+//miniMap width
+export const MINI_MAP_GAME_WIDTH = GAME_WIDTH / 20;
+// export const MINI_MAP_GAME_HEIGHT = GAME_WIDTH / 20;
+
 export const SNAKE_SPEED = 4;
 
 export const GRID_SIZE = 80;

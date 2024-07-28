@@ -58,6 +58,10 @@ export class Screen {
       color: 'black',
       width: INIT_SNAKE_SIZE / 4,
     };
+    styles[StyleSnakeEnum.POINT] = {
+      color: 'black',
+      width: 4,
+    };
     styles[StyleSnakeEnum.SCLERA] = {
       color: 'white',
       width: INIT_SNAKE_SIZE / 2,
