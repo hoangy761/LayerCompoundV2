@@ -1,7 +1,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Background } from './Background';
-import { GAME_WIDTH, SCREEN_WIDTH } from './constants';
+import { Barrier } from './Barrier';
+import { GAME_WIDTH, SCREEN_HEIGHT, SCREEN_WIDTH } from './constants';
 import { Screen } from './Screen';
 import { Snake } from './Snake';
 
@@ -11,6 +12,7 @@ export class Game {
   snake: Snake;
   screen: Screen;
   background: Background;
+  barrier: Barrier;
 
   constructor(_canvas: HTMLCanvasElement) {
     this.canvas = _canvas;
@@ -22,6 +24,8 @@ export class Game {
     this.snake = new Snake(this);
     this.screen = new Screen(this);
     this.background = new Background(this);
+    this.barrier = new Barrier(this);
+
     this.loop();
   }
 
@@ -30,18 +34,13 @@ export class Game {
     this.draw();
     setTimeout(() => {
       this.loop();
-    }, 10000);
+    }, 30);
   }
 
   clearScreen() {
     if (this.ctx) {
       this.ctx.fillStyle = '#f1f2f2';
-      this.ctx.fillRect(
-        this.snake.position.x - SCREEN_WIDTH / 2,
-        this.snake.position.y - SCREEN_WIDTH / 2,
-        SCREEN_WIDTH,
-        SCREEN_WIDTH,
-      );
+      this.ctx.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     }
   }
 
@@ -55,5 +54,6 @@ export class Game {
     this.clearScreen();
     this.background.draw();
     this.snake.draw();
+    this.screen.update();
   }
 }

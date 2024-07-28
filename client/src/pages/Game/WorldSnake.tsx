@@ -11,9 +11,8 @@ const WorldSnake = () => {
       const game = new Game(canvas);
     }
   });
-  // className="bg-[#f1f2f2]"
   return (
-    <div>
+    <div className="overflow-y-hidden overflow-x-hidden">
       <canvas ref={canvasRef} className="bg-slate-500"></canvas>
     </div>
   );

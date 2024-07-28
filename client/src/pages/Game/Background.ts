@@ -1,4 +1,4 @@
-import { GRID_SIZE, SCREEN_WIDTH } from './constants';
+import { GRID_SIZE, SCREEN_HEIGHT, SCREEN_WIDTH } from './constants';
 import { Game } from './Game';
 import { Position } from './interfaces';
 
@@ -25,10 +25,10 @@ export class Background {
     while (currentLineX <= SCREEN_WIDTH) {
       this.drawLine(
         {
-          x: currentLineX + this.game.screen.position.left,
-          y: this.game.screen.position.top,
+          x: currentLineX,
+          y: 0,
         },
-        { x: currentLineX + this.game.screen.position.left, y: this.game.screen.position.bottom },
+        { x: currentLineX, y: SCREEN_HEIGHT },
       );
       currentLineX += GRID_SIZE;
     }
@@ -36,13 +36,13 @@ export class Background {
     const firstLineY = GRID_SIZE - (this.game.snake.position.y % GRID_SIZE);
     let currentLineY = firstLineY;
     // draw horizontal line
-    while (currentLineY <= SCREEN_WIDTH) {
+    while (currentLineY <= SCREEN_HEIGHT) {
       this.drawLine(
         {
-          x: this.game.screen.position.left,
-          y: currentLineY + this.game.screen.position.top - GRID_SIZE,
+          x: 0,
+          y: currentLineY,
         },
-        { x: this.game.screen.position.right, y: currentLineY + this.game.screen.position.top - GRID_SIZE },
+        { x: SCREEN_WIDTH, y: currentLineY },
       );
       currentLineY += GRID_SIZE;
     }

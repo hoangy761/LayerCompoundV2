@@ -9,3 +9,13 @@ export interface PositionRectangle {
   left: number;
   right: number; // bottom right
 }
+
+export interface StyleSnakeAttributes {
+  color: string;
+  borderColor: string;
+  width: number;
+}
+
+export interface stylesSnake {
+  [key: string]: StyleSnakeAttributes;
+}
