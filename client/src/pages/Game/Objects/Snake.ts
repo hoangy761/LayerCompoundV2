@@ -1,9 +1,9 @@
 import { GAME_WIDTH, INIT_SNAKE_LENGHT, INIT_SNAKE_SIZE, SCREEN_HEIGHT, SCREEN_WIDTH, SNAKE_SPEED } from '../constants';
-import { StyleSnakeEnum } from '../enums';
+import { CanvasNameEnum, StyleSnakeEnum } from '../enums';
 import { Eye } from './Eye';
 import { Game } from './Game';
 import { Position } from '../interfaces';
-import { getPointOnCircumference } from '../ultis';
+import { drawCircle, getPointOnCircumference } from '../ultis';
 
 export class Snake {
   game: Game;
@@ -70,23 +70,31 @@ export class Snake {
   draw() {
     //draw shadow
     for (let index = this.tailPositions.length - 1; index >= 1; index--) {
-      this.game.screen.drawCircle(
-        { x: this.tailPositions[index].x, y: this.tailPositions[index].y },
-        StyleSnakeEnum.SHADOW,
-      );
+      if (this.game.ctx) {
+        drawCircle(
+          this.game,
+          this.game.ctx,
+          { x: this.tailPositions[index].x, y: this.tailPositions[index].y },
+          StyleSnakeEnum.SHADOW,
+          CanvasNameEnum.GAME,
+        );
+      }
     }
 
     //draw body
     for (let index = this.tailPositions.length - 1; index >= 0; index -= 3) {
-      this.game.screen.drawCircle(
-        { x: this.tailPositions[index].x, y: this.tailPositions[index].y },
-        StyleSnakeEnum.SNAKE,
-      );
+      if (this.game.ctx) {
+        drawCircle(
+          this.game,
+          this.game.ctx,
+          { x: this.tailPositions[index].x, y: this.tailPositions[index].y },
+          StyleSnakeEnum.SNAKE,
+          CanvasNameEnum.GAME,
+        );
+      }
     }
 
     //draw head
-    // this.game.screen.drawCircle({ x: this.position.x, y: this.position.y }, StyleSnakeEnum.SNAKE);
-
     //draw eyes
     this.eye.draw();
   }

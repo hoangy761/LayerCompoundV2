@@ -1,22 +1,23 @@
-import { StyleSnakeEnum } from '../enums';
-import { Position } from '../interfaces';
+import { CanvasNameEnum, StyleSnakeEnum } from '../enums';
 import { drawCircle } from '../ultis';
 import { Game } from './Game';
 
 export class MiniMap {
   game: Game;
-  snakePos: Position;
   constructor(_game: Game) {
     this.game = _game;
-    this.snakePos = this.game.snake.position;
   }
-  update() {
-    this.snakePos = this.game.snake.position;
-  }
+  update() {}
 
   draw() {
     if (this.game.ctxMiniMap) {
-      drawCircle(this.game, this.game.ctxMiniMap, this.snakePos, StyleSnakeEnum.POINT, 'miniMap');
+      drawCircle(
+        this.game,
+        this.game.ctxMiniMap,
+        this.game.snake.position,
+        StyleSnakeEnum.POINT,
+        CanvasNameEnum.MINI_MAP,
+      );
     }
   }
 }

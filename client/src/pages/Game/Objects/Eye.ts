@@ -1,5 +1,5 @@
 import { EYE_ANGLE, EYE_DISTANCE, INIT_SNAKE_SIZE } from '../constants';
-import { StyleSnakeEnum } from '../enums';
+import { CanvasNameEnum, StyleSnakeEnum } from '../enums';
 import { Position } from '../interfaces';
 import { drawCircle, getPointOnCircumference } from '../ultis';
 import { Snake } from './Snake';
@@ -35,16 +35,11 @@ export class Eye {
       this.snake.angle + EYE_ANGLE,
     );
 
-    // const eyeCenter: Position = {
-    //   x: this.snake.positionCollision.x,
-    //   y: this.snake.positionCollision.y,
-    // };
     if (this.snake.game.ctx) {
-      drawCircle(this.snake.game, this.snake.game.ctx, scleraLeftPos, StyleSnakeEnum.SCLERA);
-      this.snake.game.screen.drawCircle(scleraRightPos, StyleSnakeEnum.SCLERA);
-      this.snake.game.screen.drawCircle(eyeLeftPos, StyleSnakeEnum.EYE);
-      this.snake.game.screen.drawCircle(eyeRightPos, StyleSnakeEnum.EYE);
-      // this.snake.game.screen.drawCircle(eyeCenter, StyleSnakeEnum.EYE);
+      drawCircle(this.snake.game, this.snake.game.ctx, scleraLeftPos, StyleSnakeEnum.SCLERA, CanvasNameEnum.GAME);
+      drawCircle(this.snake.game, this.snake.game.ctx, scleraRightPos, StyleSnakeEnum.SCLERA, CanvasNameEnum.GAME);
+      drawCircle(this.snake.game, this.snake.game.ctx, eyeLeftPos, StyleSnakeEnum.EYE, CanvasNameEnum.GAME);
+      drawCircle(this.snake.game, this.snake.game.ctx, eyeRightPos, StyleSnakeEnum.EYE, CanvasNameEnum.GAME);
     }
   }
 }

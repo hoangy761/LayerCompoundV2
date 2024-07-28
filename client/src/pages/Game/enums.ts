@@ -6,3 +6,8 @@ export enum StyleSnakeEnum {
   SCLERA = 'SCLERA',
   POINT = 'POINT',
 }
+
+export enum CanvasNameEnum {
+  GAME = 'GAME',
+  MINI_MAP = 'MINI_MAP',
+}

@@ -42,48 +42,5 @@ export class Screen {
     }
   }
 
-  drawCircle(pos: Position, styleName: StyleSnakeEnum) {
-    const styles: stylesSnake = {};
-    styles[StyleSnakeEnum.SNAKE] = {
-      color: 'red',
-      borderColor: 'green',
-      width: INIT_SNAKE_SIZE,
-    };
-    styles[StyleSnakeEnum.SHADOW] = {
-      color: 'rgba(0,0,0,0.1)',
-      borderColor: 'rgba(0,0,0,0.1)',
-      width: INIT_SNAKE_SIZE + INIT_SNAKE_SIZE / 9,
-    };
-    styles[StyleSnakeEnum.EYE] = {
-      color: 'black',
-      width: INIT_SNAKE_SIZE / 4,
-    };
-    styles[StyleSnakeEnum.POINT] = {
-      color: 'black',
-      width: 4,
-    };
-    styles[StyleSnakeEnum.SCLERA] = {
-      color: 'white',
-      width: INIT_SNAKE_SIZE / 2,
-    };
-
-    const styleProperties = styles[styleName];
-
-    if (this.game.ctx) {
-      this.game.ctx.beginPath();
-      // this.game.ctx.arc(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 10, 0, Math.PI * 2);
-      this.game.ctx.arc(
-        pos.x - this.position.left,
-        pos.y - this.position.top - SCREEN_WIDTH / 4,
-        styleProperties.width,
-        0,
-        Math.PI * 2,
-      );
-      this.game.ctx.fillStyle = styleProperties.color;
-      this.game.ctx.fill();
-      styleProperties.borderColor ? (this.game.ctx.strokeStyle = styleProperties.borderColor) : '';
-      this.game.ctx.stroke();
-    }
-  }
   draw() {}
 }

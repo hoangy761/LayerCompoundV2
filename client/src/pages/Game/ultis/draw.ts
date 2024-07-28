@@ -1,5 +1,5 @@
 import { GAME_WIDTH, INIT_SNAKE_SIZE, MINI_MAP_GAME_WIDTH, SCREEN_WIDTH } from '../constants';
-import { StyleSnakeEnum } from '../enums';
+import { CanvasNameEnum, StyleSnakeEnum } from '../enums';
 import { Position, stylesSnake } from '../interfaces';
 import { Game } from '../Objects/Game';
 
@@ -8,7 +8,7 @@ export function drawCircle(
   ctx: CanvasRenderingContext2D,
   pos: Position,
   styleName: StyleSnakeEnum,
-  type = 'game',
+  type: CanvasNameEnum,
 ) {
   const styles: stylesSnake = {};
   styles[StyleSnakeEnum.SNAKE] = {
@@ -35,7 +35,7 @@ export function drawCircle(
   };
 
   const styleProperties = styles[styleName];
-  if (type == 'game') {
+  if (type == CanvasNameEnum.GAME) {
     if (ctx) {
       ctx.beginPath();
       // ctx.arc(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 10, 0, Math.PI * 2);
@@ -52,7 +52,7 @@ export function drawCircle(
       ctx.stroke();
     }
   }
-  if (type == 'miniMap') {
+  if (type == CanvasNameEnum.MINI_MAP) {
     if (ctx) {
       ctx.beginPath();
       // ctx.arc(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 10, 0, Math.PI * 2);
