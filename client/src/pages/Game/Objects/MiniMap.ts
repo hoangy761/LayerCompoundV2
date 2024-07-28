@@ -1,5 +1,5 @@
 import { CanvasNameEnum, StyleSnakeEnum } from '../enums';
-import { drawCircle } from '../ultis';
+import { drawCircle, drawDot } from '../ultis';
 import { Game } from './Game';
 
 export class MiniMap {
@@ -11,6 +11,9 @@ export class MiniMap {
 
   draw() {
     if (this.game.ctxMiniMap) {
+      for (let i = 0; i < this.game.food.foods.length; i++) {
+        drawDot(this.game, this.game.ctxMiniMap, this.game.food.foods[i], CanvasNameEnum.MINI_MAP);
+      }
       drawCircle(
         this.game,
         this.game.ctxMiniMap,
