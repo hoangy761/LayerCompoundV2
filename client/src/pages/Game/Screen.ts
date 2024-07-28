@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { GAME_WIDTH, SCREEN_HEIGHT, SCREEN_WIDTH } from './constants';
+import { GAME_WIDTH, INIT_SNAKE_SIZE, SCREEN_HEIGHT, SCREEN_WIDTH } from './constants';
 import { StyleSnakeEnum } from './enums';
 import { Game } from './Game';
 import { Position, PositionRectangle, stylesSnake } from './interfaces';
@@ -14,31 +14,29 @@ export class Screen {
   }
 
   update() {
+    this.position.top = this.game.snake.position.y - SCREEN_WIDTH / 2;
     this.position.bottom = this.game.snake.position.y + SCREEN_WIDTH / 2;
     this.position.left = this.game.snake.position.x - SCREEN_WIDTH / 2;
     this.position.right = this.game.snake.position.x + SCREEN_WIDTH / 2;
     console.log(this.position);
 
     if (this.position.top - SCREEN_HEIGHT / 2 <= 0) {
-      this.game.barrier.drawLineTop();
+      this.game.barrier.drawLineTop(SCREEN_HEIGHT / 2 - this.position.top);
     }
     if (this.position.left - SCREEN_WIDTH / 2 <= 0) {
-      this.game.barrier.drawLineLeft();
+      this.game.barrier.drawLineLeft(SCREEN_WIDTH / 2 - this.position.left);
     }
-    if (this.position.bottom - GAME_WIDTH / 2 >= 0) {
-      this.game.barrier.drawLineBottom();
+    if (this.position.bottom + SCREEN_HEIGHT / 2 - GAME_WIDTH >= 0) {
+      this.game.barrier.drawLineBottom(this.position.bottom + SCREEN_HEIGHT / 2 - GAME_WIDTH);
     }
-    if (this.position.right - GAME_WIDTH / 2 >= 0) {
-      this.game.barrier.drawLineRight();
+    if (this.position.right + SCREEN_WIDTH / 2 - GAME_WIDTH >= 0) {
+      this.game.barrier.drawLineRight(this.position.right + SCREEN_WIDTH / 2 - GAME_WIDTH);
     }
 
-    if (this.position.top <= 0) {
-      this.position.top = 0;
-    } else if (this.position.top >= GAME_WIDTH) {
-      this.position.top = GAME_WIDTH;
-    } else {
-      this.position.top = this.game.snake.position.y - SCREEN_WIDTH / 2;
+    if (this.position.top + INIT_SNAKE_SIZE / 2 <= 0) {
+      return true;
     }
+    return false;
   }
 
   drawCircle(pos: Position, styleName: StyleSnakeEnum) {
@@ -47,7 +45,7 @@ export class Screen {
     styles[StyleSnakeEnum.SNAKE] = {
       color: 'red',
       borderColor: 'green',
-      width: 30,
+      width: INIT_SNAKE_SIZE,
     };
     // styles[StyleSnakeEnum.EYE] = {
     //   color: 'red',

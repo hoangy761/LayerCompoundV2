@@ -47,7 +47,11 @@ export class Game {
   update() {
     this.snake.update();
     this.background.update();
-    this.screen.update();
+    const isConllision = this.screen.update();
+    if (isConllision) {
+      window.alert('Chet roi');
+      this.clearScreen();
+    }
   }
 
   draw() {

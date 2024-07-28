@@ -1,4 +1,4 @@
-import { GAME_WIDTH } from './constants';
+import { SCREEN_HEIGHT, SCREEN_WIDTH } from './constants';
 import { Game } from './Game';
 import { Position } from './interfaces';
 
@@ -8,31 +8,38 @@ export class Barrier {
     this.game = _game;
   }
   update() {}
-  drawLine(startPos: Position, endPos: Position) {
+  drawLineWarning(startPos: Position, endPos: Position, _lineWidth: number) {
     if (this.game.ctx) {
       this.game.ctx.strokeStyle = 'red';
-      this.game.ctx.lineWidth = 10;
+      this.game.ctx.lineWidth = _lineWidth;
       this.game.ctx.beginPath();
       this.game.ctx.moveTo(startPos.x, startPos.y);
       this.game.ctx.lineTo(endPos.x, endPos.y);
       this.game.ctx.stroke();
     }
   }
-  drawLineTop() {
-    this.drawLine({ x: 0, y: 0 }, { x: GAME_WIDTH, y: 0 });
+  drawLineTop(_lineWidth: number) {
+    this.drawLineWarning({ x: 0, y: 0 + _lineWidth / 2 }, { x: SCREEN_WIDTH, y: 0 + _lineWidth / 2 }, _lineWidth);
   }
-  drawLineLeft() {
-    this.drawLine({ x: 0, y: 0 }, { x: 0, y: GAME_WIDTH });
+  drawLineLeft(_lineWidth: number) {
+    this.drawLineWarning({ x: 0 + _lineWidth / 2, y: 0 }, { x: 0 + _lineWidth / 2, y: SCREEN_HEIGHT }, _lineWidth);
   }
-  drawLineBottom() {
-    this.drawLine({ x: 0, y: GAME_WIDTH }, { x: GAME_WIDTH, y: GAME_WIDTH });
+  drawLineBottom(_lineWidth: number) {
+    this.drawLineWarning(
+      { x: 0, y: SCREEN_HEIGHT - _lineWidth / 2 },
+      { x: SCREEN_WIDTH, y: SCREEN_HEIGHT - _lineWidth / 2 },
+      _lineWidth,
+    );
   }
-  drawLineRight() {
-    this.drawLine({ x: GAME_WIDTH, y: 0 }, { x: GAME_WIDTH, y: GAME_WIDTH });
+  drawLineRight(_lineWidth: number) {
+    this.drawLineWarning(
+      { x: SCREEN_WIDTH - _lineWidth / 2, y: 0 },
+      { x: SCREEN_WIDTH - _lineWidth / 2, y: SCREEN_HEIGHT },
+      _lineWidth,
+    );
   }
 
   draw() {
     console.log('ddax ve ne 12');
-    this.drawLine({ x: 0, y: 0 }, { x: GAME_WIDTH, y: 0 });
   }
 }
