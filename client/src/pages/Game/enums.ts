@@ -2,4 +2,6 @@
 export enum StyleSnakeEnum {
   SNAKE = 'SNAKE',
   EYE = 'EYE',
+  SHADOW = 'SHADOW',
+  SCLERA = 'SCLERA',
 }

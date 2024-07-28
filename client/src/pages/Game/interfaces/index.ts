@@ -12,7 +12,7 @@ export interface PositionRectangle {
 
 export interface StyleSnakeAttributes {
   color: string;
-  borderColor: string;
+  borderColor?: string;
   width: number;
 }
 

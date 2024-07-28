@@ -1,12 +1,12 @@
 import Tippy from '@tippyjs/react';
 import {
-  AnalysisTextLinkIcon,
-  Bitcoin03Icon,
+  // AnalysisTextLinkIcon,
+  // Bitcoin03Icon,
+  // PromotionIcon,
+  // DataRecoveryIcon,
   Cancel01Icon,
-  DataRecoveryIcon,
   GameboyIcon,
   Menu01Icon,
-  PromotionIcon,
 } from 'hugeicons-react';
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
@@ -18,10 +18,10 @@ interface routeNav {
 }
 const Navbar = () => {
   const routesNavbar: routeNav[] = [
-    { to: '/vaults', name: 'Vault', icon: <DataRecoveryIcon /> },
-    { to: '/dao', name: 'Dao', icon: <PromotionIcon /> },
-    { to: '/staking', name: 'Staking', icon: <Bitcoin03Icon /> },
-    { to: '/stats', name: 'Stats', icon: <AnalysisTextLinkIcon /> },
+    // { to: '/vaults', name: 'Vault', icon: <DataRecoveryIcon /> },
+    // { to: '/dao', name: 'Dao', icon: <PromotionIcon /> },
+    // { to: '/staking', name: 'Staking', icon: <Bitcoin03Icon /> },
+    // { to: '/stats', name: 'Stats', icon: <AnalysisTextLinkIcon /> },
     { to: '/game', name: 'Game', icon: <GameboyIcon /> },
   ];
   const path = useLocation();

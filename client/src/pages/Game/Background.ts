@@ -10,7 +10,7 @@ export class Background {
   update() {}
   drawLine(startPos: Position, endPos: Position) {
     if (this.game.ctx) {
-      this.game.ctx.strokeStyle = 'black';
+      this.game.ctx.strokeStyle = '#8f8f8f';
       this.game.ctx.lineWidth = 1;
       this.game.ctx.beginPath();
       this.game.ctx.moveTo(startPos.x, startPos.y);

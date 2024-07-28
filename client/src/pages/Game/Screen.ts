@@ -18,40 +18,53 @@ export class Screen {
     this.position.bottom = this.game.snake.position.y + SCREEN_WIDTH / 2;
     this.position.left = this.game.snake.position.x - SCREEN_WIDTH / 2;
     this.position.right = this.game.snake.position.x + SCREEN_WIDTH / 2;
-    console.log(this.position);
 
-    if (this.position.top - SCREEN_HEIGHT / 2 <= 0) {
-      this.game.barrier.drawLineTop(SCREEN_HEIGHT / 2 - this.position.top);
+    if (this.game.snake.positionCollision.y - SCREEN_HEIGHT / 2 <= 0) {
+      this.game.barrier.drawLineTop(SCREEN_HEIGHT / 2 - this.game.snake.positionCollision.y - 2 * INIT_SNAKE_SIZE);
     }
-    if (this.position.left - SCREEN_WIDTH / 2 <= 0) {
-      this.game.barrier.drawLineLeft(SCREEN_WIDTH / 2 - this.position.left);
+    if (this.game.snake.positionCollision.x - SCREEN_WIDTH / 2 <= 0) {
+      this.game.barrier.drawLineLeft(SCREEN_WIDTH / 2 - this.game.snake.positionCollision.x);
     }
-    if (this.position.bottom + SCREEN_HEIGHT / 2 - GAME_WIDTH >= 0) {
-      this.game.barrier.drawLineBottom(this.position.bottom + SCREEN_HEIGHT / 2 - GAME_WIDTH);
+    if (this.game.snake.positionCollision.y + SCREEN_HEIGHT / 2 - GAME_WIDTH >= 0) {
+      this.game.barrier.drawLineBottom(
+        this.game.snake.positionCollision.y +
+          SCREEN_HEIGHT / 2 -
+          GAME_WIDTH +
+          INIT_SNAKE_SIZE * 2 -
+          INIT_SNAKE_SIZE / 2,
+      );
     }
-    if (this.position.right + SCREEN_WIDTH / 2 - GAME_WIDTH >= 0) {
-      this.game.barrier.drawLineRight(this.position.right + SCREEN_WIDTH / 2 - GAME_WIDTH);
+    if (this.game.snake.positionCollision.x + SCREEN_WIDTH / 2 - GAME_WIDTH >= 0) {
+      this.game.barrier.drawLineRight(this.game.snake.positionCollision.x + SCREEN_WIDTH / 2 - GAME_WIDTH);
     }
-
-    if (this.position.top + INIT_SNAKE_SIZE / 2 <= 0) {
+    console.log(this.game.snake.positionCollision.y, SCREEN_HEIGHT / 4);
+    if (this.game.snake.position.y + INIT_SNAKE_SIZE <= 0) {
+      console.log('TOI N');
       return true;
     }
     return false;
   }
 
   drawCircle(pos: Position, styleName: StyleSnakeEnum) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const styles: stylesSnake = {};
     styles[StyleSnakeEnum.SNAKE] = {
       color: 'red',
       borderColor: 'green',
       width: INIT_SNAKE_SIZE,
     };
-    // styles[StyleSnakeEnum.EYE] = {
-    //   color: 'red',
-    //   borderColor: 'green',
-    //   width: 10,
-    // };
+    styles[StyleSnakeEnum.SHADOW] = {
+      color: 'rgba(0,0,0,0.1)',
+      borderColor: 'rgba(0,0,0,0.1)',
+      width: INIT_SNAKE_SIZE + INIT_SNAKE_SIZE / 9,
+    };
+    styles[StyleSnakeEnum.EYE] = {
+      color: 'black',
+      width: INIT_SNAKE_SIZE / 4,
+    };
+    styles[StyleSnakeEnum.SCLERA] = {
+      color: 'white',
+      width: INIT_SNAKE_SIZE / 2,
+    };
 
     const styleProperties = styles[styleName];
 
@@ -67,7 +80,7 @@ export class Screen {
       );
       this.game.ctx.fillStyle = styleProperties.color;
       this.game.ctx.fill();
-      this.game.ctx.strokeStyle = styleProperties.borderColor;
+      styleProperties.borderColor ? (this.game.ctx.strokeStyle = styleProperties.borderColor) : '';
       this.game.ctx.stroke();
     }
   }

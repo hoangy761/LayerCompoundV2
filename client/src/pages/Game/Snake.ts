@@ -1,17 +1,22 @@
-import { GAME_WIDTH, INIT_SNAKE_LENGHT, SCREEN_HEIGHT, SCREEN_WIDTH, SNAKE_SPEED } from './constants';
+import { GAME_WIDTH, INIT_SNAKE_LENGHT, INIT_SNAKE_SIZE, SCREEN_HEIGHT, SCREEN_WIDTH, SNAKE_SPEED } from './constants';
 import { StyleSnakeEnum } from './enums';
+import { Eye } from './Eye';
 import { Game } from './Game';
 import { Position } from './interfaces';
+import { getPointOnCircumference } from './ultis';
 
 export class Snake {
   game: Game;
+  eye: Eye;
   position: Position;
+  positionCollision: Position;
   angle: number;
   tailPositions: Position[];
   constructor(_game: Game) {
     this.game = _game;
     this.position = { x: GAME_WIDTH / 2, y: GAME_WIDTH / 2 };
-
+    this.positionCollision = { x: this.position.x + INIT_SNAKE_SIZE, y: this.position.y };
+    this.eye = new Eye(this);
     this.angle = 0;
     this.tailPositions = [];
 
@@ -55,13 +60,29 @@ export class Snake {
     this.tailPositions.pop();
 
     this.position = newTailPosition;
+    this.positionCollision = getPointOnCircumference(this.position, INIT_SNAKE_SIZE, this.angle);
   }
   draw() {
+    //draw shadow
+    for (let index = this.tailPositions.length - 1; index >= 1; index--) {
+      this.game.screen.drawCircle(
+        { x: this.tailPositions[index].x, y: this.tailPositions[index].y },
+        StyleSnakeEnum.SHADOW,
+      );
+    }
+
+    //draw body
     for (let index = this.tailPositions.length - 1; index >= 0; index -= 3) {
       this.game.screen.drawCircle(
         { x: this.tailPositions[index].x, y: this.tailPositions[index].y },
         StyleSnakeEnum.SNAKE,
       );
     }
+
+    //draw head
+    // this.game.screen.drawCircle({ x: this.position.x, y: this.position.y }, StyleSnakeEnum.SNAKE);
+
+    //draw eyes
+    this.eye.draw();
   }
 }

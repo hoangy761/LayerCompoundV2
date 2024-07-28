@@ -34,7 +34,7 @@ export class Game {
     this.draw();
     setTimeout(() => {
       this.loop();
-    }, 30);
+    }, 50);
   }
 
   clearScreen() {
@@ -49,8 +49,8 @@ export class Game {
     this.background.update();
     const isConllision = this.screen.update();
     if (isConllision) {
-      window.alert('Chet roi');
-      this.clearScreen();
+      // window.alert('Chet roi');
+      location.reload();
     }
   }
 
