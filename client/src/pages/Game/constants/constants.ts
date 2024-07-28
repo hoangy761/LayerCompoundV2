@@ -23,3 +23,6 @@ export const INIT_SNAKE_LENGHT = 100;
 export const INIT_SNAKE_SIZE = 30;
 export const EYE_DISTANCE = INIT_SNAKE_SIZE / 1.3;
 export const EYE_ANGLE = 0.8;
+
+//food
+export const INIT_FOODS_NUMBER = 50;

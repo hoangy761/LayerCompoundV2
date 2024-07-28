@@ -19,3 +19,10 @@ export interface StyleSnakeAttributes {
 export interface stylesSnake {
   [key: string]: StyleSnakeAttributes;
 }
+
+export interface Dot {
+  pos: Position;
+  color: string;
+  size: number;
+  borderColor?: string;
+}

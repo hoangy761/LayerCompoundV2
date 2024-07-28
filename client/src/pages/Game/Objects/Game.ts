@@ -5,6 +5,7 @@ import { Snake } from './Snake';
 import { Screen } from './Screen';
 import { isConllision } from '../ultis';
 import { MiniMap } from './MiniMap';
+import { Food } from './Food';
 
 export class Game {
   ctx: CanvasRenderingContext2D | null;
@@ -16,6 +17,7 @@ export class Game {
   background: Background;
   barrier: Barrier;
   miniMap: MiniMap;
+  food: Food;
 
   constructor(_canvas: HTMLCanvasElement, _canvasMiniMap: HTMLCanvasElement) {
     this.canvas = _canvas;
@@ -35,6 +37,8 @@ export class Game {
     this.barrier = new Barrier(this);
     //miniMap
     this.miniMap = new MiniMap(this);
+    //food
+    this.food = new Food(this);
 
     this.loop();
   }
@@ -72,8 +76,9 @@ export class Game {
   draw() {
     this.clearScreen();
     this.background.draw();
-    this.snake.draw();
     this.miniMap.draw();
+    this.food.draw();
+    this.snake.draw();
     this.screen.update();
   }
 }
