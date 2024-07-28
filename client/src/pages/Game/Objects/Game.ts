@@ -2,9 +2,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Background } from './Background';
 import { Barrier } from './Barrier';
-import { GAME_WIDTH, SCREEN_HEIGHT, SCREEN_WIDTH } from './constants';
-import { Screen } from './Screen';
+import { GAME_WIDTH, SCREEN_HEIGHT, SCREEN_WIDTH } from '../constants';
 import { Snake } from './Snake';
+import { Screen } from './Screen';
+import { isConllision } from '../ultis';
 
 export class Game {
   ctx: CanvasRenderingContext2D | null;
@@ -32,6 +33,10 @@ export class Game {
   loop() {
     this.update();
     this.draw();
+    if (isConllision(this.snake.positionCollision, GAME_WIDTH, GAME_WIDTH)) {
+      window.alert('chạm vào vùng FreeFire rôi =((');
+      this.snake.initSnake();
+    }
     setTimeout(() => {
       this.loop();
     }, 50);
@@ -47,11 +52,8 @@ export class Game {
   update() {
     this.snake.update();
     this.background.update();
-    const isConllision = this.screen.update();
-    if (isConllision) {
-      // window.alert('Chet roi');
-      location.reload();
-    }
+    this.screen.update();
+    // return isConllision(this.game.snake.positionCollision, GAME_WIDTH, GAME_WIDTH);
   }
 
   draw() {

@@ -1,9 +1,9 @@
-import { GAME_WIDTH, INIT_SNAKE_LENGHT, INIT_SNAKE_SIZE, SCREEN_HEIGHT, SCREEN_WIDTH, SNAKE_SPEED } from './constants';
-import { StyleSnakeEnum } from './enums';
+import { GAME_WIDTH, INIT_SNAKE_LENGHT, INIT_SNAKE_SIZE, SCREEN_HEIGHT, SCREEN_WIDTH, SNAKE_SPEED } from '../constants';
+import { StyleSnakeEnum } from '../enums';
 import { Eye } from './Eye';
 import { Game } from './Game';
-import { Position } from './interfaces';
-import { getPointOnCircumference } from './ultis';
+import { Position } from '../interfaces';
+import { getPointOnCircumference } from '../ultis';
 
 export class Snake {
   game: Game;
@@ -23,6 +23,11 @@ export class Snake {
     this.createTail(INIT_SNAKE_LENGHT);
 
     this.listenMouseEvent();
+  }
+  initSnake() {
+    this.position = { x: GAME_WIDTH / 2, y: GAME_WIDTH / 2 };
+    this.positionCollision = { x: this.position.x + INIT_SNAKE_SIZE, y: this.position.y };
+    this.createTail(INIT_SNAKE_LENGHT);
   }
 
   listenMouseEvent() {

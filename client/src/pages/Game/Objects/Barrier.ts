@@ -1,6 +1,6 @@
-import { SCREEN_HEIGHT, SCREEN_WIDTH } from './constants';
+import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../constants';
 import { Game } from './Game';
-import { Position } from './interfaces';
+import { Position } from '../interfaces';
 
 export class Barrier {
   game: Game;

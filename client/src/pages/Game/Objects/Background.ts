@@ -1,6 +1,6 @@
-import { GRID_SIZE, SCREEN_HEIGHT, SCREEN_WIDTH } from './constants';
+import { GRID_SIZE, SCREEN_HEIGHT, SCREEN_WIDTH } from '../constants';
+import { Position } from '../interfaces';
 import { Game } from './Game';
-import { Position } from './interfaces';
 
 export class Background {
   game: Game;

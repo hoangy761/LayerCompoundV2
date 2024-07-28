@@ -1,8 +1,8 @@
-import { EYE_ANGLE, EYE_DISTANCE, INIT_SNAKE_SIZE } from './constants';
-import { StyleSnakeEnum } from './enums';
-import { Position } from './interfaces';
+import { EYE_ANGLE, EYE_DISTANCE, INIT_SNAKE_SIZE } from '../constants';
+import { StyleSnakeEnum } from '../enums';
+import { Position } from '../interfaces';
+import { getPointOnCircumference } from '../ultis';
 import { Snake } from './Snake';
-import { getPointOnCircumference } from './ultis';
 
 export class Eye {
   snake: Snake;

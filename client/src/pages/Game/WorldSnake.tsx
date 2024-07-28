@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-unused-vars */
 import React, { useLayoutEffect, useRef } from 'react';
-import { Game } from './Game';
+import { Game } from './Objects/Game';
 
 const WorldSnake = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
