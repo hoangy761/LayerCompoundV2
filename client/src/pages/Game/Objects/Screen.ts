@@ -1,10 +1,5 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 import { GAME_WIDTH, INIT_SNAKE_SIZE, SCREEN_HEIGHT, SCREEN_WIDTH } from '../constants';
-import { StyleSnakeEnum } from '../enums';
-import { Position, PositionRectangle, stylesSnake } from '../interfaces';
-import { isConllision } from '../ultis';
+import { PositionRectangle } from '../interfaces';
 import { Game } from './Game';
 
 export class Screen {
