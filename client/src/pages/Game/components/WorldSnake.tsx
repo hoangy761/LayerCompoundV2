@@ -17,12 +17,7 @@ const WorldSnake = () => {
   return (
     <div className="relative">
       <div className={`absolute z-50 right-0`}>
-        <canvas
-          ref={canvasRefMiniMap}
-          width={MINI_MAP_GAME_WIDTH}
-          height={MINI_MAP_GAME_WIDTH}
-          className="bg-orange-300"
-        ></canvas>
+        <canvas ref={canvasRefMiniMap} width={MINI_MAP_GAME_WIDTH} height={MINI_MAP_GAME_WIDTH}></canvas>
       </div>
       <div className="overflow-y-hidden overflow-x-hidden">
         <canvas ref={canvasRef} className="bg-slate-500"></canvas>

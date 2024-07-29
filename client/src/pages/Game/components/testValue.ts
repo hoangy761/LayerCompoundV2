@@ -6,7 +6,7 @@ export const userPoints: IUserPoint[] = [
   { id: 3, name: 'Hoang 3', userScore: 120 },
   { id: 4, name: 'Hoang 4', userScore: 100 },
   { id: 4, name: 'Hoang 4', userScore: 100 },
-  { id: 4, name: 'Hoang 4', userScore: 100 },
+  { id: 4, name: 'Hoang ', userScore: 100 },
   { id: 4, name: 'Hoang 4', userScore: 100 },
   { id: 4, name: 'Hoang 4', userScore: 100 },
   { id: 4, name: 'Hoang 4', userScore: 100 },

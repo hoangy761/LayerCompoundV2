@@ -61,7 +61,7 @@ export class Game {
       this.ctx.fillStyle = '#f1f2f2';
       this.ctx.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-      this.ctxMiniMap.fillStyle = 'green';
+      this.ctxMiniMap.fillStyle = 'rgba(174, 174, 174, 0.5)';
       this.ctxMiniMap.fillRect(0, 0, MINI_MAP_GAME_WIDTH, MINI_MAP_GAME_WIDTH);
     }
   }

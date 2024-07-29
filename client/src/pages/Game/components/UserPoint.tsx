@@ -9,15 +9,15 @@ function UserPoint({ user, index }: UserPointProps) {
   console.log(index);
   return (
     <div
-      className={`grid grid-cols-3 gap-9 
+      className={`grid grid-cols-3 gap-x-4
     ${index == 0 ? 'text-yellow-400 ' : ''}
     ${index == 1 ? 'text-slate-200 ' : ''}
     ${index == 2 ? 'text-orange-800 ' : ''}
     `}
     >
-      <p>{index + 1}</p>
-      <p>{user.name}</p>
-      <p>{user.userScore}</p>
+      <p className="gap-1">{index + 1}</p>
+      <p className="gap-4">{user.name}</p>
+      <p className="gap-1">{user.userScore}</p>
     </div>
   );
 }
