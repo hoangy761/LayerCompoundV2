@@ -64,8 +64,8 @@ export class Snake {
         x: this.position.x + Math.cos(this.angle) * this.game.snakeInitAttributes.speed,
         y: this.position.y + Math.sin(this.angle) * this.game.snakeInitAttributes.speed,
       };
-      this.game.snakeInitAttributes.tailPositions.unshift(newTailPosition);
-      this.position = newTailPosition;
+      this.game.snakeInitAttributes.tailPositions.push(newTailPosition);
+      // this.position = newTailPosition;
     }
   }
   update() {
@@ -78,8 +78,14 @@ export class Snake {
     //   y: this.position.y + Math.sin(this.angle) * this.game.snakeInitAttributes.speed,
     // };
     // this.game.snakeInitAttributes.tailPositions.unshift(newTailPosition);
-    this.growth(1);
+    // this.growth(1);
+    const newTailPosition = {
+      x: this.position.x + Math.cos(this.angle) * this.game.snakeInitAttributes.speed,
+      y: this.position.y + Math.sin(this.angle) * this.game.snakeInitAttributes.speed,
+    };
+    this.game.snakeInitAttributes.tailPositions.unshift(newTailPosition);
     this.game.snakeInitAttributes.tailPositions.pop();
+    this.position = newTailPosition;
 
     this.game.snakeInitAttributes.positionCollision = getPointOnCircumference(
       this.position,
