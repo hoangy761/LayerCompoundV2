@@ -2,8 +2,21 @@
 /* eslint-disable no-unused-vars */
 import React, { useLayoutEffect, useRef } from 'react';
 import { Game } from '../Objects/Game';
-import { MINI_MAP_GAME_WIDTH } from '../constants';
+import { INIT_SNAKE_LENGTH, INIT_SNAKE_SIZE, MINI_MAP_GAME_WIDTH, SNAKE_SPEED } from '../constants';
+import { ISnake } from '../interfaces';
 
+const snakeInitAttributes: ISnake = {
+  isAlive: true,
+  speed: SNAKE_SPEED,
+  tailPositions: [],
+  length: INIT_SNAKE_LENGTH,
+  positionCollision: { x: 0, y: 0 },
+  style: {
+    borderColor: 'green',
+    color: 'green',
+    size: INIT_SNAKE_SIZE,
+  },
+};
 const WorldSnake = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const canvasRefMiniMap = useRef<HTMLCanvasElement>(null);
@@ -11,7 +24,7 @@ const WorldSnake = () => {
     const canvas = canvasRef.current;
     const canvasMiniMap = canvasRefMiniMap.current;
     if (canvas && canvasMiniMap) {
-      const game = new Game(canvas, canvasMiniMap);
+      const game = new Game(canvas, canvasMiniMap, snakeInitAttributes);
     }
   });
   return (

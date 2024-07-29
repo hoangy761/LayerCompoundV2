@@ -1,4 +1,4 @@
-import { GAME_WIDTH, INIT_SNAKE_LENGHT, INIT_SNAKE_SIZE, SCREEN_HEIGHT, SCREEN_WIDTH, SNAKE_SPEED } from '../constants';
+import { GAME_WIDTH, INIT_SNAKE_LENGTH, INIT_SNAKE_SIZE, SCREEN_HEIGHT, SCREEN_WIDTH, SNAKE_SPEED } from '../constants';
 import { CanvasNameEnum } from '../enums';
 import { Eye } from './Eye';
 import { Game } from './Game';
@@ -9,33 +9,31 @@ export class Snake {
   game: Game;
   eye: Eye;
   position: IPosition;
-  positionCollision: IPosition;
+  // positionCollision: IPosition;
   angle: number;
-  tailPositions: IPosition[];
   constructor(_game: Game) {
     this.game = _game;
-    // this.position = { x: GAME_WIDTH / 2, y: GAME_WIDTH / 2 };
     this.position = {
       x: getRandomInteger(SCREEN_WIDTH / 2, GAME_WIDTH - SCREEN_WIDTH / 2),
       y: getRandomInteger(SCREEN_HEIGHT / 2, GAME_WIDTH - SCREEN_HEIGHT / 2),
     };
-    this.positionCollision = { x: this.position.x + INIT_SNAKE_SIZE, y: this.position.y };
+    // this.positionCollision = { x: this.position.x + INIT_SNAKE_SIZE, y: this.position.y };
+    this.game.snakeInitAttributes.positionCollision = { x: this.position.x + INIT_SNAKE_SIZE, y: this.position.y };
     this.eye = new Eye(this);
     this.angle = 0;
-    this.tailPositions = [];
 
-    this.createTail(INIT_SNAKE_LENGHT);
+    this.createTail(INIT_SNAKE_LENGTH);
 
     this.listenMouseEvent();
   }
   initSnake() {
-    this.tailPositions = [];
+    this.game.snakeInitAttributes.tailPositions = [];
     this.position = {
       x: getRandomInteger(SCREEN_WIDTH / 2, GAME_WIDTH - SCREEN_WIDTH / 2),
       y: getRandomInteger(SCREEN_HEIGHT / 2, GAME_WIDTH - SCREEN_HEIGHT / 2),
     };
-    this.positionCollision = { x: this.position.x + INIT_SNAKE_SIZE, y: this.position.y };
-    this.createTail(INIT_SNAKE_LENGHT);
+    this.game.snakeInitAttributes.positionCollision = { x: this.position.x + INIT_SNAKE_SIZE, y: this.position.y };
+    this.createTail(INIT_SNAKE_LENGTH);
   }
 
   listenMouseEvent() {
@@ -55,9 +53,11 @@ export class Snake {
   }
 
   createTail(initLenght: number) {
-    //init lenght Snake
     for (let index = 0; index < initLenght; index++) {
-      this.tailPositions.push({ x: this.position.x - SNAKE_SPEED * index, y: this.position.y });
+      this.game.snakeInitAttributes.tailPositions.push({
+        x: this.position.x - SNAKE_SPEED * index,
+        y: this.position.y,
+      });
     }
   }
   update() {
@@ -66,25 +66,32 @@ export class Snake {
     // this.position.y += Math.sin(this.angle) * SNAKE_SPEED;
 
     const newTailPosition = {
-      x: this.position.x + Math.cos(this.angle) * SNAKE_SPEED,
-      y: this.position.y + Math.sin(this.angle) * SNAKE_SPEED,
+      x: this.position.x + Math.cos(this.angle) * this.game.snakeInitAttributes.speed,
+      y: this.position.y + Math.sin(this.angle) * this.game.snakeInitAttributes.speed,
     };
-    this.tailPositions.unshift(newTailPosition);
-    this.tailPositions.pop();
+    this.game.snakeInitAttributes.tailPositions.unshift(newTailPosition);
+    this.game.snakeInitAttributes.tailPositions.pop();
 
     this.position = newTailPosition;
-    this.positionCollision = getPointOnCircumference(this.position, INIT_SNAKE_SIZE, this.angle);
+    this.game.snakeInitAttributes.positionCollision = getPointOnCircumference(
+      this.position,
+      INIT_SNAKE_SIZE,
+      this.angle,
+    );
   }
   draw() {
     //draw shadow
-    for (let index = this.tailPositions.length - 1; index >= 1; index--) {
+    for (let index = this.game.snakeInitAttributes.tailPositions.length - 1; index >= 1; index--) {
       if (this.game.ctx) {
         drawDot(
           this.game,
           this.game.ctx,
           {
             color: 'rgba(0,0,0,0.1)',
-            pos: { x: this.tailPositions[index].x, y: this.tailPositions[index].y },
+            pos: {
+              x: this.game.snakeInitAttributes.tailPositions[index].x,
+              y: this.game.snakeInitAttributes.tailPositions[index].y,
+            },
             size: INIT_SNAKE_SIZE + INIT_SNAKE_SIZE / 9,
             borderColor: 'rgba(0,0,0,0.1)',
           },
@@ -94,14 +101,17 @@ export class Snake {
     }
 
     //draw body
-    for (let index = this.tailPositions.length - 1; index >= 0; index -= 3) {
+    for (let index = this.game.snakeInitAttributes.tailPositions.length - 1; index >= 0; index -= 3) {
       if (this.game.ctx) {
         drawDot(
           this.game,
           this.game.ctx,
           {
             color: 'red',
-            pos: { x: this.tailPositions[index].x, y: this.tailPositions[index].y },
+            pos: {
+              x: this.game.snakeInitAttributes.tailPositions[index].x,
+              y: this.game.snakeInitAttributes.tailPositions[index].y,
+            },
             size: INIT_SNAKE_SIZE,
             borderColor: 'green',
           },

@@ -16,24 +16,28 @@ export class Screen {
     this.position.left = this.game.snake.position.x - SCREEN_WIDTH / 2;
     this.position.right = this.game.snake.position.x + SCREEN_WIDTH / 2;
 
-    if (this.game.snake.positionCollision.y - SCREEN_HEIGHT / 2 <= 0) {
-      this.game.barrier.drawLineTop(SCREEN_HEIGHT / 2 - this.game.snake.positionCollision.y - 2 * INIT_SNAKE_SIZE);
+    if (this.game.snakeInitAttributes.positionCollision.y - SCREEN_HEIGHT / 2 <= 0) {
+      this.game.barrier.drawLineTop(
+        SCREEN_HEIGHT / 2 - this.game.snakeInitAttributes.positionCollision.y - 2 * INIT_SNAKE_SIZE,
+      );
     }
 
-    if (this.game.snake.positionCollision.x - SCREEN_WIDTH / 2 <= 0) {
-      this.game.barrier.drawLineLeft(SCREEN_WIDTH / 2 - this.game.snake.positionCollision.x);
+    if (this.game.snakeInitAttributes.positionCollision.x - SCREEN_WIDTH / 2 <= 0) {
+      this.game.barrier.drawLineLeft(SCREEN_WIDTH / 2 - this.game.snakeInitAttributes.positionCollision.x);
     }
-    if (this.game.snake.positionCollision.y + SCREEN_HEIGHT / 2 - GAME_WIDTH >= 0) {
+    if (this.game.snakeInitAttributes.positionCollision.y + SCREEN_HEIGHT / 2 - GAME_WIDTH >= 0) {
       this.game.barrier.drawLineBottom(
-        this.game.snake.positionCollision.y +
+        this.game.snakeInitAttributes.positionCollision.y +
           SCREEN_HEIGHT / 2 -
           GAME_WIDTH +
           INIT_SNAKE_SIZE * 2 -
           INIT_SNAKE_SIZE / 2,
       );
     }
-    if (this.game.snake.positionCollision.x + SCREEN_WIDTH / 2 - GAME_WIDTH >= 0) {
-      this.game.barrier.drawLineRight(this.game.snake.positionCollision.x + SCREEN_WIDTH / 2 - GAME_WIDTH);
+    if (this.game.snakeInitAttributes.positionCollision.x + SCREEN_WIDTH / 2 - GAME_WIDTH >= 0) {
+      this.game.barrier.drawLineRight(
+        this.game.snakeInitAttributes.positionCollision.x + SCREEN_WIDTH / 2 - GAME_WIDTH,
+      );
     }
   }
 

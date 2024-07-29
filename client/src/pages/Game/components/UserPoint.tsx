@@ -6,7 +6,6 @@ interface UserPointProps {
 }
 
 function UserPoint({ user, index }: UserPointProps) {
-  console.log(index);
   return (
     <div
       className={`grid grid-cols-3 gap-x-4

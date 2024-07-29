@@ -31,3 +31,16 @@ export interface IUserPoint {
   name: string;
   userScore: number; // or userPoints, points, score
 }
+
+export interface ISnake {
+  tailPositions: IPosition[];
+  speed: number;
+  isAlive: boolean;
+  length: number;
+  positionCollision: IPosition;
+  style: {
+    size: number;
+    color: string;
+    borderColor: string;
+  };
+}

@@ -6,6 +6,7 @@ import { Screen } from './Screen';
 import { isConllision } from '../ultis';
 import { MiniMap } from './MiniMap';
 import { Food } from './Food';
+import { ISnake } from '../interfaces';
 
 export class Game {
   ctx: CanvasRenderingContext2D | null;
@@ -18,8 +19,8 @@ export class Game {
   barrier: Barrier;
   miniMap: MiniMap;
   food: Food;
-
-  constructor(_canvas: HTMLCanvasElement, _canvasMiniMap: HTMLCanvasElement) {
+  snakeInitAttributes: ISnake;
+  constructor(_canvas: HTMLCanvasElement, _canvasMiniMap: HTMLCanvasElement, _snakeInitAttributes: ISnake) {
     this.canvas = _canvas;
     this.canvasMiniMap = _canvasMiniMap;
     this.ctx = this.canvas.getContext('2d');
@@ -28,6 +29,8 @@ export class Game {
     this.canvas.height = GAME_WIDTH;
 
     //snake
+    this.snakeInitAttributes = _snakeInitAttributes;
+
     this.snake = new Snake(this);
     //screen
     this.screen = new Screen(this);
@@ -47,7 +50,7 @@ export class Game {
   loop() {
     this.update();
     this.draw();
-    if (isConllision(this.snake.positionCollision, GAME_WIDTH, GAME_WIDTH)) {
+    if (isConllision(this.snakeInitAttributes.positionCollision, GAME_WIDTH, GAME_WIDTH)) {
       window.alert('chạm vào vùng FreeFire rôi =((');
       this.snake.initSnake();
     }
