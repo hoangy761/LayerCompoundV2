@@ -41,6 +41,7 @@ export class Game {
     this.food = new Food(this);
 
     this.loop();
+    this.food.draw();
   }
 
   loop() {
@@ -66,11 +67,11 @@ export class Game {
   }
 
   update() {
-    this.snake.update();
     this.background.update();
-    this.screen.update();
     this.miniMap.update();
-    // return isConllision(this.game.snake.positionCollision, GAME_WIDTH, GAME_WIDTH);
+    this.food.update();
+    this.snake.update();
+    this.screen.update();
   }
 
   draw() {

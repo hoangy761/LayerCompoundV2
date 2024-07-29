@@ -126,7 +126,6 @@ export function drawDot(game: Game, ctx: CanvasRenderingContext2D, dot: Dot, typ
       ctx.fill();
       dot.borderColor ? (ctx.strokeStyle = dot.borderColor) : '';
       ctx.stroke();
-      console.log(dot.pos.x / (GAME_WIDTH / MINI_MAP_GAME_WIDTH));
     }
   }
 }

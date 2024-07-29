@@ -40,6 +40,9 @@ export class Eye {
       drawCircle(this.snake.game, this.snake.game.ctx, scleraRightPos, StyleSnakeEnum.SCLERA, CanvasNameEnum.GAME);
       drawCircle(this.snake.game, this.snake.game.ctx, eyeLeftPos, StyleSnakeEnum.EYE, CanvasNameEnum.GAME);
       drawCircle(this.snake.game, this.snake.game.ctx, eyeRightPos, StyleSnakeEnum.EYE, CanvasNameEnum.GAME);
+
+      drawCircle(this.snake.game, this.snake.game.ctx, eyeRightPos, StyleSnakeEnum.EYE, CanvasNameEnum.GAME);
+      drawCircle(this.snake.game, this.snake.game.ctx, eyeRightPos, StyleSnakeEnum.EYE, CanvasNameEnum.GAME);
     }
   }
 }

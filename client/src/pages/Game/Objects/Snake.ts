@@ -25,6 +25,7 @@ export class Snake {
     this.listenMouseEvent();
   }
   initSnake() {
+    this.tailPositions = [];
     this.position = { x: GAME_WIDTH / 2, y: GAME_WIDTH / 2 };
     this.positionCollision = { x: this.position.x + INIT_SNAKE_SIZE, y: this.position.y };
     this.createTail(INIT_SNAKE_LENGHT);
