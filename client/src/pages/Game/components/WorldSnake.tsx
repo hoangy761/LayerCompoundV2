@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-unused-vars */
 import React, { useLayoutEffect, useRef } from 'react';
-import { Game } from './Objects/Game';
-import { MINI_MAP_GAME_WIDTH } from './constants';
+import { Game } from '../Objects/Game';
+import { MINI_MAP_GAME_WIDTH } from '../constants';
 
 const WorldSnake = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);

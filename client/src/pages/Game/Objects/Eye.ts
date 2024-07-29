@@ -1,6 +1,6 @@
 import { EYE_ANGLE, EYE_DISTANCE, INIT_SNAKE_SIZE } from '../constants';
 import { CanvasNameEnum, StyleSnakeEnum } from '../enums';
-import { Position } from '../interfaces';
+import { IPosition } from '../interfaces';
 import { drawCircle, getPointOnCircumference } from '../ultis';
 import { Snake } from './Snake';
 
@@ -12,24 +12,24 @@ export class Eye {
 
   update() {}
   draw() {
-    const eyeLeftPos: Position = getPointOnCircumference(
+    const eyeLeftPos: IPosition = getPointOnCircumference(
       this.snake.position,
       EYE_DISTANCE * 1.3,
       this.snake.angle - EYE_ANGLE + 0.25,
     );
 
-    const eyeRightPos: Position = getPointOnCircumference(
+    const eyeRightPos: IPosition = getPointOnCircumference(
       this.snake.position,
       EYE_DISTANCE * 1.3,
       this.snake.angle + EYE_ANGLE - 0.25,
     );
 
-    const scleraLeftPos: Position = getPointOnCircumference(
+    const scleraLeftPos: IPosition = getPointOnCircumference(
       this.snake.position,
       INIT_SNAKE_SIZE / 1.3,
       this.snake.angle - EYE_ANGLE,
     );
-    const scleraRightPos: Position = getPointOnCircumference(
+    const scleraRightPos: IPosition = getPointOnCircumference(
       this.snake.position,
       INIT_SNAKE_SIZE / 1.3,
       this.snake.angle + EYE_ANGLE,

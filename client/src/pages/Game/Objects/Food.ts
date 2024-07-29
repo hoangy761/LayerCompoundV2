@@ -1,12 +1,12 @@
 import { GAME_WIDTH, INIT_FOODS_NUMBER, INIT_SNAKE_SIZE } from '../constants';
 import { CanvasNameEnum } from '../enums';
-import { Dot } from '../interfaces';
+import { IDot } from '../interfaces';
 import { drawDot, getRandomInteger, isEat } from '../ultis';
 import { Game } from './Game';
 
 export class Food {
   game: Game;
-  foods: Dot[];
+  foods: IDot[];
   constructor(_game: Game) {
     this.game = _game;
     this.foods = [];

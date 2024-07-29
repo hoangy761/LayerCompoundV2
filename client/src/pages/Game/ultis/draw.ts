@@ -1,16 +1,16 @@
 import { GAME_WIDTH, INIT_SNAKE_SIZE, MINI_MAP_GAME_WIDTH, SCREEN_WIDTH } from '../constants';
 import { CanvasNameEnum, StyleSnakeEnum } from '../enums';
-import { Dot, Position, stylesSnake } from '../interfaces';
+import { IDot, IPosition, IStylesSnake } from '../interfaces';
 import { Game } from '../Objects/Game';
 
 export function drawCircle(
   game: Game,
   ctx: CanvasRenderingContext2D,
-  pos: Position,
+  pos: IPosition,
   styleName: StyleSnakeEnum,
   type: CanvasNameEnum,
 ) {
-  const styles: stylesSnake = {};
+  const styles: IStylesSnake = {};
   styles[StyleSnakeEnum.SNAKE] = {
     color: 'red',
     borderColor: 'green',
@@ -69,7 +69,7 @@ export function drawCircle(
     }
   }
 }
-export function drawDot(game: Game, ctx: CanvasRenderingContext2D, dot: Dot, type: CanvasNameEnum) {
+export function drawDot(game: Game, ctx: CanvasRenderingContext2D, dot: IDot, type: CanvasNameEnum) {
   // const styles: stylesSnake = {};
   // styles[StyleSnakeEnum.SNAKE] = {
   //   color: 'red',

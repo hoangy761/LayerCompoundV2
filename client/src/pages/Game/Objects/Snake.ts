@@ -2,16 +2,16 @@ import { GAME_WIDTH, INIT_SNAKE_LENGHT, INIT_SNAKE_SIZE, SCREEN_HEIGHT, SCREEN_W
 import { CanvasNameEnum, StyleSnakeEnum } from '../enums';
 import { Eye } from './Eye';
 import { Game } from './Game';
-import { Position } from '../interfaces';
+import { IPosition } from '../interfaces';
 import { drawCircle, getPointOnCircumference } from '../ultis';
 
 export class Snake {
   game: Game;
   eye: Eye;
-  position: Position;
-  positionCollision: Position;
+  position: IPosition;
+  positionCollision: IPosition;
   angle: number;
-  tailPositions: Position[];
+  tailPositions: IPosition[];
   constructor(_game: Game) {
     this.game = _game;
     this.position = { x: GAME_WIDTH / 2, y: GAME_WIDTH / 2 };
@@ -43,7 +43,7 @@ export class Snake {
       });
     }
   }
-  processMouseMove(mousePos: Position) {
+  processMouseMove(mousePos: IPosition) {
     this.angle = Math.atan2(mousePos.y - SCREEN_HEIGHT / 2, mousePos.x - SCREEN_WIDTH / 2);
   }
 
