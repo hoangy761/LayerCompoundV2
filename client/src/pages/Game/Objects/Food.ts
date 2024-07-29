@@ -14,7 +14,18 @@ export class Food {
   }
 
   createFoods(_lenght: number) {
-    const colors = ['red', 'green', 'red', 'green', 'red', 'green', 'red', 'green', 'red', 'green'];
+    const colors = [
+      '#7C00FE',
+      '#F9E400',
+      '#FFAF00',
+      '#F5004F',
+      '#FFB200',
+      '#E4003A',
+      '#EECEB9',
+      '#FEFBD8',
+      '#E8DFCA',
+      '#1A4D2E',
+    ];
     for (let i = 0; i < _lenght; i++) {
       const pos = { x: getRandomInteger(0, GAME_WIDTH), y: getRandomInteger(0, GAME_WIDTH) };
       const color = colors[getRandomInteger(0, colors.length - 1)];
