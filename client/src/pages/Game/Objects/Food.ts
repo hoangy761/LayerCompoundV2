@@ -30,6 +30,11 @@ export class Food {
         this.foods.splice(i, 1);
       }
     }
+    setTimeout(() => {
+      if (this.foods.length < INIT_FOODS_NUMBER) {
+        this.createFoods(INIT_FOODS_NUMBER - this.foods.length);
+      }
+    }, 10000);
   }
   draw() {
     for (let i = 0; i < this.foods.length; i++) {
