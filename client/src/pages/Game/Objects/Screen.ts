@@ -1,10 +1,10 @@
 import { GAME_WIDTH, INIT_SNAKE_SIZE, SCREEN_HEIGHT, SCREEN_WIDTH } from '../constants';
-import { PositionRectangle } from '../interfaces';
+import { IPositionRectangle } from '../interfaces';
 import { Game } from './Game';
 
 export class Screen {
   game: Game;
-  position: PositionRectangle;
+  position: IPositionRectangle;
   constructor(_game: Game) {
     this.game = _game;
     this.position = { top: 1, bottom: 1, right: 1, left: 1 };

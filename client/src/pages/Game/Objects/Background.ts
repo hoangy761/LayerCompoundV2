@@ -1,5 +1,5 @@
 import { GRID_SIZE, SCREEN_HEIGHT, SCREEN_WIDTH } from '../constants';
-import { Position } from '../interfaces';
+import { IPosition } from '../interfaces';
 import { Game } from './Game';
 
 export class Background {
@@ -8,7 +8,7 @@ export class Background {
     this.game = _game;
   }
   update() {}
-  drawLine(startPos: Position, endPos: Position) {
+  drawLine(startPos: IPosition, endPos: IPosition) {
     if (this.game.ctx) {
       this.game.ctx.strokeStyle = '#8f8f8f';
       this.game.ctx.lineWidth = 1;

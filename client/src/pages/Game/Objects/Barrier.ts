@@ -1,6 +1,6 @@
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../constants';
 import { Game } from './Game';
-import { Position } from '../interfaces';
+import { IPosition } from '../interfaces';
 
 export class Barrier {
   game: Game;
@@ -8,7 +8,7 @@ export class Barrier {
     this.game = _game;
   }
   update() {}
-  drawLineWarning(startPos: Position, endPos: Position, _lineWidth: number) {
+  drawLineWarning(startPos: IPosition, endPos: IPosition, _lineWidth: number) {
     if (this.game.ctx) {
       this.game.ctx.strokeStyle = 'red';
       this.game.ctx.lineWidth = _lineWidth;
