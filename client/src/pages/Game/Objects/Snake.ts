@@ -1,9 +1,9 @@
 import { GAME_WIDTH, INIT_SNAKE_LENGHT, INIT_SNAKE_SIZE, SCREEN_HEIGHT, SCREEN_WIDTH, SNAKE_SPEED } from '../constants';
-import { CanvasNameEnum, StyleSnakeEnum } from '../enums';
+import { CanvasNameEnum } from '../enums';
 import { Eye } from './Eye';
 import { Game } from './Game';
 import { IPosition } from '../interfaces';
-import { drawCircle, getPointOnCircumference } from '../ultis';
+import { drawDot, getPointOnCircumference } from '../ultis';
 
 export class Snake {
   game: Game;
@@ -72,11 +72,15 @@ export class Snake {
     //draw shadow
     for (let index = this.tailPositions.length - 1; index >= 1; index--) {
       if (this.game.ctx) {
-        drawCircle(
+        drawDot(
           this.game,
           this.game.ctx,
-          { x: this.tailPositions[index].x, y: this.tailPositions[index].y },
-          StyleSnakeEnum.SHADOW,
+          {
+            color: 'rgba(0,0,0,0.1)',
+            pos: { x: this.tailPositions[index].x, y: this.tailPositions[index].y },
+            size: INIT_SNAKE_SIZE + INIT_SNAKE_SIZE / 9,
+            borderColor: 'rgba(0,0,0,0.1)',
+          },
           CanvasNameEnum.GAME,
         );
       }
@@ -85,11 +89,15 @@ export class Snake {
     //draw body
     for (let index = this.tailPositions.length - 1; index >= 0; index -= 3) {
       if (this.game.ctx) {
-        drawCircle(
+        drawDot(
           this.game,
           this.game.ctx,
-          { x: this.tailPositions[index].x, y: this.tailPositions[index].y },
-          StyleSnakeEnum.SNAKE,
+          {
+            color: 'red',
+            pos: { x: this.tailPositions[index].x, y: this.tailPositions[index].y },
+            size: INIT_SNAKE_SIZE,
+            borderColor: 'green',
+          },
           CanvasNameEnum.GAME,
         );
       }

@@ -1,7 +1,7 @@
 import { EYE_ANGLE, EYE_DISTANCE, INIT_SNAKE_SIZE } from '../constants';
-import { CanvasNameEnum, StyleSnakeEnum } from '../enums';
+import { CanvasNameEnum } from '../enums';
 import { IPosition } from '../interfaces';
-import { drawCircle, getPointOnCircumference } from '../ultis';
+import { drawDot, getPointOnCircumference } from '../ultis';
 import { Snake } from './Snake';
 
 export class Eye {
@@ -36,13 +36,32 @@ export class Eye {
     );
 
     if (this.snake.game.ctx) {
-      drawCircle(this.snake.game, this.snake.game.ctx, scleraLeftPos, StyleSnakeEnum.SCLERA, CanvasNameEnum.GAME);
-      drawCircle(this.snake.game, this.snake.game.ctx, scleraRightPos, StyleSnakeEnum.SCLERA, CanvasNameEnum.GAME);
-      drawCircle(this.snake.game, this.snake.game.ctx, eyeLeftPos, StyleSnakeEnum.EYE, CanvasNameEnum.GAME);
-      drawCircle(this.snake.game, this.snake.game.ctx, eyeRightPos, StyleSnakeEnum.EYE, CanvasNameEnum.GAME);
+      drawDot(
+        this.snake.game,
+        this.snake.game.ctx,
+        { color: 'white', pos: scleraLeftPos, size: INIT_SNAKE_SIZE / 2 },
+        CanvasNameEnum.GAME,
+      );
+      drawDot(
+        this.snake.game,
+        this.snake.game.ctx,
+        { color: 'white', pos: scleraRightPos, size: INIT_SNAKE_SIZE / 2 },
+        CanvasNameEnum.GAME,
+      );
 
-      drawCircle(this.snake.game, this.snake.game.ctx, eyeRightPos, StyleSnakeEnum.EYE, CanvasNameEnum.GAME);
-      drawCircle(this.snake.game, this.snake.game.ctx, eyeRightPos, StyleSnakeEnum.EYE, CanvasNameEnum.GAME);
+      drawDot(
+        this.snake.game,
+        this.snake.game.ctx,
+        { color: 'black', pos: eyeLeftPos, size: INIT_SNAKE_SIZE / 4 },
+        CanvasNameEnum.GAME,
+      );
+
+      drawDot(
+        this.snake.game,
+        this.snake.game.ctx,
+        { color: 'black', pos: eyeRightPos, size: INIT_SNAKE_SIZE / 4 },
+        CanvasNameEnum.GAME,
+      );
     }
   }
 }
