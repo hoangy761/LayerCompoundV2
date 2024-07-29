@@ -108,8 +108,10 @@ export function drawDot(game: Game, ctx: CanvasRenderingContext2D, dot: Dot, typ
       );
       ctx.fillStyle = dot.color;
       ctx.fill();
-      dot.borderColor ? (ctx.strokeStyle = dot.borderColor) : '';
-      ctx.stroke();
+      if (dot.borderColor) {
+        ctx.strokeStyle = dot.borderColor;
+        ctx.stroke();
+      }
     }
   }
   if (type == CanvasNameEnum.MINI_MAP) {
@@ -124,8 +126,10 @@ export function drawDot(game: Game, ctx: CanvasRenderingContext2D, dot: Dot, typ
       );
       ctx.fillStyle = dot.color;
       ctx.fill();
-      // dot.borderColor ? (ctx.strokeStyle = dot.borderColor) : '';
-      // ctx.stroke();
+      if (dot.borderColor) {
+        ctx.strokeStyle = dot.borderColor;
+        ctx.stroke();
+      }
     }
   }
 }
