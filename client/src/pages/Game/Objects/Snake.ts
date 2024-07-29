@@ -3,7 +3,7 @@ import { CanvasNameEnum } from '../enums';
 import { Eye } from './Eye';
 import { Game } from './Game';
 import { IPosition } from '../interfaces';
-import { drawDot, getPointOnCircumference } from '../ultis';
+import { drawDot, getPointOnCircumference, getRandomInteger } from '../ultis';
 
 export class Snake {
   game: Game;
@@ -14,7 +14,11 @@ export class Snake {
   tailPositions: IPosition[];
   constructor(_game: Game) {
     this.game = _game;
-    this.position = { x: GAME_WIDTH / 2, y: GAME_WIDTH / 2 };
+    // this.position = { x: GAME_WIDTH / 2, y: GAME_WIDTH / 2 };
+    this.position = {
+      x: getRandomInteger(SCREEN_WIDTH / 2, GAME_WIDTH - SCREEN_WIDTH / 2),
+      y: getRandomInteger(SCREEN_HEIGHT / 2, GAME_WIDTH - SCREEN_HEIGHT / 2),
+    };
     this.positionCollision = { x: this.position.x + INIT_SNAKE_SIZE, y: this.position.y };
     this.eye = new Eye(this);
     this.angle = 0;
@@ -26,7 +30,10 @@ export class Snake {
   }
   initSnake() {
     this.tailPositions = [];
-    this.position = { x: GAME_WIDTH / 2, y: GAME_WIDTH / 2 };
+    this.position = {
+      x: getRandomInteger(SCREEN_WIDTH / 2, GAME_WIDTH - SCREEN_WIDTH / 2),
+      y: getRandomInteger(SCREEN_HEIGHT / 2, GAME_WIDTH - SCREEN_HEIGHT / 2),
+    };
     this.positionCollision = { x: this.position.x + INIT_SNAKE_SIZE, y: this.position.y };
     this.createTail(INIT_SNAKE_LENGHT);
   }
