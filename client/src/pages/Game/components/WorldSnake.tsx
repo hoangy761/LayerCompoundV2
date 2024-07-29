@@ -9,7 +9,6 @@ const snakeInitAttributes: ISnake = {
   isAlive: true,
   speed: SNAKE_SPEED,
   tailPositions: [],
-  length: INIT_SNAKE_LENGTH,
   positionCollision: { x: 0, y: 0 },
   style: {
     borderColor: 'green',
@@ -22,6 +21,9 @@ const snakeInitAttributes: ISnake = {
     size: INIT_SNAKE_SIZE + INIT_SNAKE_SIZE / 9,
   },
 };
+interface WorldSnakeProps {
+  setSnakeAttributes: (attributes: ISnake) => void;
+}
 const WorldSnake = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const canvasRefMiniMap = useRef<HTMLCanvasElement>(null);

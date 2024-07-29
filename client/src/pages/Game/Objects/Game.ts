@@ -46,6 +46,9 @@ export class Game {
     this.loop();
     this.food.draw();
   }
+  getSnakeAttributes() {
+    return this.snakeInitAttributes;
+  }
 
   loop() {
     this.update();

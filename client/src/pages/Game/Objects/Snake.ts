@@ -1,4 +1,4 @@
-import { GAME_WIDTH, INIT_SNAKE_SIZE, SCREEN_HEIGHT, SCREEN_WIDTH, SNAKE_SPEED } from '../constants';
+import { GAME_WIDTH, INIT_SNAKE_LENGTH, INIT_SNAKE_SIZE, SCREEN_HEIGHT, SCREEN_WIDTH, SNAKE_SPEED } from '../constants';
 import { CanvasNameEnum } from '../enums';
 import { Eye } from './Eye';
 import { Game } from './Game';
@@ -10,6 +10,7 @@ export class Snake {
   eye: Eye;
   position: IPosition;
   angle: number;
+  isMouseDown: boolean;
   constructor(_game: Game) {
     this.game = _game;
     this.position = {
@@ -20,8 +21,8 @@ export class Snake {
     this.eye = new Eye(this);
     this.angle = 0;
 
-    this.createTail(this.game.snakeInitAttributes.length);
-
+    this.createTail(INIT_SNAKE_LENGTH);
+    this.isMouseDown = false;
     this.listenMouseEvent();
   }
   initSnake() {
@@ -31,7 +32,7 @@ export class Snake {
       y: getRandomInteger(SCREEN_HEIGHT / 2, GAME_WIDTH - SCREEN_HEIGHT / 2),
     };
     this.game.snakeInitAttributes.positionCollision = { x: this.position.x + INIT_SNAKE_SIZE, y: this.position.y };
-    this.createTail(this.game.snakeInitAttributes.length);
+    this.createTail(INIT_SNAKE_LENGTH);
   }
 
   listenMouseEvent() {
@@ -44,10 +45,38 @@ export class Snake {
           y: event.clientY - rect.top,
         });
       });
+
+      // onmouseDown x2 speed event: MouseEvent
+      this.game.canvas.addEventListener('mousedown', this.handleMouseDown.bind(this));
+      this.game.canvas.addEventListener('mouseup', this.handleMouseUp.bind(this));
     }
+    document.addEventListener('keydown', this.handleKeyDown.bind(this));
+    document.addEventListener('keyup', this.handleKeyUp.bind(this));
   }
   processMouseMove(mousePos: IPosition) {
     this.angle = Math.atan2(mousePos.y - SCREEN_HEIGHT / 2, mousePos.x - SCREEN_WIDTH / 2);
+  }
+  handleMouseDown() {
+    this.isMouseDown = true;
+    console.log('mousedown');
+  }
+
+  handleMouseUp() {
+    this.isMouseDown = false;
+    console.log('mouseup');
+  }
+  handleKeyDown(event: KeyboardEvent) {
+    if (event.code === 'Space') {
+      this.isMouseDown = true;
+      console.log('Space key down');
+    }
+  }
+
+  handleKeyUp(event: KeyboardEvent) {
+    if (event.code === 'Space') {
+      this.isMouseDown = false;
+      console.log('Space key up');
+    }
   }
 
   createTail(initLenght: number) {
@@ -72,13 +101,17 @@ export class Snake {
     // cos = ke / huyen => k = cos * h
     // this.position.x += Math.cos(this.angle) * SNAKE_SPEED;
     // this.position.y += Math.sin(this.angle) * SNAKE_SPEED;
+    if (this.game.snakeInitAttributes.tailPositions.length > INIT_SNAKE_LENGTH) {
+      if (this.isMouseDown) {
+        this.game.snakeInitAttributes.speed = SNAKE_SPEED * 3;
+        this.game.snakeInitAttributes.tailPositions.pop();
+      } else {
+        this.game.snakeInitAttributes.speed = SNAKE_SPEED;
+      }
+    } else {
+      this.game.snakeInitAttributes.speed = SNAKE_SPEED;
+    }
 
-    // const newTailPosition = {
-    //   x: this.position.x + Math.cos(this.angle) * this.game.snakeInitAttributes.speed,
-    //   y: this.position.y + Math.sin(this.angle) * this.game.snakeInitAttributes.speed,
-    // };
-    // this.game.snakeInitAttributes.tailPositions.unshift(newTailPosition);
-    // this.growth(1);
     const newTailPosition = {
       x: this.position.x + Math.cos(this.angle) * this.game.snakeInitAttributes.speed,
       y: this.position.y + Math.sin(this.angle) * this.game.snakeInitAttributes.speed,

@@ -36,7 +36,6 @@ export interface ISnake {
   tailPositions: IPosition[];
   speed: number;
   isAlive: boolean;
-  length: number;
   positionCollision: IPosition;
   style: {
     size: number;
