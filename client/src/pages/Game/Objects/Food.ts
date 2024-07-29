@@ -26,6 +26,7 @@ export class Food {
     for (let i = 0; i < this.foods.length; i++) {
       const isMatch = isEat(this.game.snake.position, INIT_SNAKE_SIZE, this.game.snake.angle, this.foods[i].pos);
       if (isMatch) {
+        this.game.snake.growth(this.foods[i].size);
         this.foods.splice(i, 1);
       }
     }

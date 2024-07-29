@@ -1,4 +1,4 @@
-import { GAME_WIDTH, INIT_SNAKE_LENGTH, INIT_SNAKE_SIZE, SCREEN_HEIGHT, SCREEN_WIDTH, SNAKE_SPEED } from '../constants';
+import { GAME_WIDTH, INIT_SNAKE_SIZE, SCREEN_HEIGHT, SCREEN_WIDTH, SNAKE_SPEED } from '../constants';
 import { CanvasNameEnum } from '../enums';
 import { Eye } from './Eye';
 import { Game } from './Game';
@@ -9,7 +9,6 @@ export class Snake {
   game: Game;
   eye: Eye;
   position: IPosition;
-  // positionCollision: IPosition;
   angle: number;
   constructor(_game: Game) {
     this.game = _game;
@@ -17,12 +16,11 @@ export class Snake {
       x: getRandomInteger(SCREEN_WIDTH / 2, GAME_WIDTH - SCREEN_WIDTH / 2),
       y: getRandomInteger(SCREEN_HEIGHT / 2, GAME_WIDTH - SCREEN_HEIGHT / 2),
     };
-    // this.positionCollision = { x: this.position.x + INIT_SNAKE_SIZE, y: this.position.y };
     this.game.snakeInitAttributes.positionCollision = { x: this.position.x + INIT_SNAKE_SIZE, y: this.position.y };
     this.eye = new Eye(this);
     this.angle = 0;
 
-    this.createTail(INIT_SNAKE_LENGTH);
+    this.createTail(this.game.snakeInitAttributes.length);
 
     this.listenMouseEvent();
   }
@@ -33,7 +31,7 @@ export class Snake {
       y: getRandomInteger(SCREEN_HEIGHT / 2, GAME_WIDTH - SCREEN_HEIGHT / 2),
     };
     this.game.snakeInitAttributes.positionCollision = { x: this.position.x + INIT_SNAKE_SIZE, y: this.position.y };
-    this.createTail(INIT_SNAKE_LENGTH);
+    this.createTail(this.game.snakeInitAttributes.length);
   }
 
   listenMouseEvent() {
@@ -60,19 +58,29 @@ export class Snake {
       });
     }
   }
+  growth(numberCalo: number) {
+    for (let i = 0; i < numberCalo; i++) {
+      const newTailPosition = {
+        x: this.position.x + Math.cos(this.angle) * this.game.snakeInitAttributes.speed,
+        y: this.position.y + Math.sin(this.angle) * this.game.snakeInitAttributes.speed,
+      };
+      this.game.snakeInitAttributes.tailPositions.unshift(newTailPosition);
+      this.position = newTailPosition;
+    }
+  }
   update() {
     // cos = ke / huyen => k = cos * h
     // this.position.x += Math.cos(this.angle) * SNAKE_SPEED;
     // this.position.y += Math.sin(this.angle) * SNAKE_SPEED;
 
-    const newTailPosition = {
-      x: this.position.x + Math.cos(this.angle) * this.game.snakeInitAttributes.speed,
-      y: this.position.y + Math.sin(this.angle) * this.game.snakeInitAttributes.speed,
-    };
-    this.game.snakeInitAttributes.tailPositions.unshift(newTailPosition);
+    // const newTailPosition = {
+    //   x: this.position.x + Math.cos(this.angle) * this.game.snakeInitAttributes.speed,
+    //   y: this.position.y + Math.sin(this.angle) * this.game.snakeInitAttributes.speed,
+    // };
+    // this.game.snakeInitAttributes.tailPositions.unshift(newTailPosition);
+    this.growth(1);
     this.game.snakeInitAttributes.tailPositions.pop();
 
-    this.position = newTailPosition;
     this.game.snakeInitAttributes.positionCollision = getPointOnCircumference(
       this.position,
       INIT_SNAKE_SIZE,
@@ -87,13 +95,13 @@ export class Snake {
           this.game,
           this.game.ctx,
           {
-            color: 'rgba(0,0,0,0.1)',
+            color: this.game.snakeInitAttributes.styleShadow.color,
             pos: {
               x: this.game.snakeInitAttributes.tailPositions[index].x,
               y: this.game.snakeInitAttributes.tailPositions[index].y,
             },
-            size: INIT_SNAKE_SIZE + INIT_SNAKE_SIZE / 9,
-            borderColor: 'rgba(0,0,0,0.1)',
+            size: this.game.snakeInitAttributes.styleShadow.size,
+            borderColor: this.game.snakeInitAttributes.styleShadow.borderColor,
           },
           CanvasNameEnum.GAME,
         );
@@ -107,13 +115,13 @@ export class Snake {
           this.game,
           this.game.ctx,
           {
-            color: 'red',
+            color: this.game.snakeInitAttributes.style.color,
             pos: {
               x: this.game.snakeInitAttributes.tailPositions[index].x,
               y: this.game.snakeInitAttributes.tailPositions[index].y,
             },
-            size: INIT_SNAKE_SIZE,
-            borderColor: 'green',
+            size: this.game.snakeInitAttributes.style.size,
+            borderColor: this.game.snakeInitAttributes.style.borderColor,
           },
           CanvasNameEnum.GAME,
         );

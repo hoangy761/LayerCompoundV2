@@ -13,8 +13,13 @@ const snakeInitAttributes: ISnake = {
   positionCollision: { x: 0, y: 0 },
   style: {
     borderColor: 'green',
-    color: 'green',
+    color: 'red',
     size: INIT_SNAKE_SIZE,
+  },
+  styleShadow: {
+    borderColor: 'rgba(0,0,0,0.1)',
+    color: 'rgba(0,0,0,0.1)',
+    size: INIT_SNAKE_SIZE + INIT_SNAKE_SIZE / 9,
   },
 };
 const WorldSnake = () => {

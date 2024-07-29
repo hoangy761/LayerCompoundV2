@@ -43,4 +43,9 @@ export interface ISnake {
     color: string;
     borderColor: string;
   };
+  styleShadow: {
+    size: number;
+    color: string;
+    borderColor: string;
+  };
 }
