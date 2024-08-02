@@ -24,6 +24,19 @@ export class Food {
       this.createOneFood(pos, color, size);
     }
   }
+  dead() {
+    for (let i = 0; i < this.game.snakeInitAttributes.tailPositions.length; i += 5) {
+      const posTail = this.game.snakeInitAttributes.tailPositions[i];
+      const sizeSnake = this.game.snakeInitAttributes.style.size;
+      const pos = {
+        x: getRandomInteger(posTail.x, posTail.x + sizeSnake),
+        y: getRandomInteger(posTail.y, posTail.y + sizeSnake),
+      };
+      const color = COLORS[getRandomInteger(0, COLORS.length - 1)];
+      const size = getRandomInteger(5, 10);
+      this.createOneFood(pos, color, size);
+    }
+  }
   newFoods() {
     setInterval(() => {
       if (this.foods.length < INIT_FOODS_NUMBER) {

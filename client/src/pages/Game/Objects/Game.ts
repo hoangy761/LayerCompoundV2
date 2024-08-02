@@ -54,8 +54,12 @@ export class Game {
     this.update();
     this.draw();
     if (isConllision(this.snakeInitAttributes.positionCollision, GAME_WIDTH, GAME_WIDTH)) {
-      window.alert('chạm vào vùng FreeFire rôi =((');
-      this.snake.initSnake();
+      this.snakeInitAttributes.isAlive = false;
+      this.food.dead();
+      setTimeout(() => {
+        window.alert('chạm vào vùng FreeFire rôi =((');
+        this.snake.initSnake();
+      }, 50);
     }
     return this.getSnakeAttributes();
   }

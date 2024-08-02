@@ -48,3 +48,13 @@ export interface ISnake {
     borderColor: string;
   };
 }
+
+export interface IPlayer {
+  id: string;
+  snake: ISnake;
+}
+
+export interface IDataRealTime {
+  foods: IDot[];
+  players: IPlayer[];
+}

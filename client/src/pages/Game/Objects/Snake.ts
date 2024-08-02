@@ -184,6 +184,8 @@ export class Snake {
     this.eye.draw();
   }
   draw() {
-    this.drawSnake();
+    if (this.game.snakeInitAttributes.isAlive) {
+      this.drawSnake();
+    }
   }
 }
