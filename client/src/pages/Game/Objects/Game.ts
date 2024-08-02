@@ -58,6 +58,7 @@ export class Game {
       this.food.dead();
       setTimeout(() => {
         window.alert('chạm vào vùng FreeFire rôi =((');
+        this.snakeInitAttributes.isAlive = true;
         this.snake.initSnake();
       }, 50);
     }
