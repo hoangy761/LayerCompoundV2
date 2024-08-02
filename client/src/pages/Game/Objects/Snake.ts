@@ -1,4 +1,12 @@
-import { GAME_WIDTH, INIT_SNAKE_LENGTH, INIT_SNAKE_SIZE, SCREEN_HEIGHT, SCREEN_WIDTH, SNAKE_SPEED } from '../constants';
+import {
+  COLORS,
+  GAME_WIDTH,
+  INIT_SNAKE_LENGTH,
+  INIT_SNAKE_SIZE,
+  SCREEN_HEIGHT,
+  SCREEN_WIDTH,
+  SNAKE_SPEED,
+} from '../constants';
 import { CanvasNameEnum } from '../enums';
 import { Eye } from './Eye';
 import { Game } from './Game';
@@ -93,11 +101,20 @@ export class Snake {
       // this.position = newTailPosition;
     }
   }
+  feces() {
+    this.game.food.createOneFood(
+      this.game.snakeInitAttributes.tailPositions[this.game.snakeInitAttributes.tailPositions.length - 1],
+      COLORS[getRandomInteger(0, COLORS.length - 1)],
+      1,
+    );
+  }
   run() {
     if (this.game.snakeInitAttributes.tailPositions.length > INIT_SNAKE_LENGTH) {
       if (this.isMouseDown) {
         this.game.snakeInitAttributes.speed = SNAKE_SPEED * 2;
-        this.game.snakeInitAttributes.tailPositions.pop();
+        this.game.snakeInitAttributes.tailPositions = this.game.snakeInitAttributes.tailPositions.slice(0, -3);
+
+        this.feces();
       } else {
         this.game.snakeInitAttributes.speed = SNAKE_SPEED;
       }

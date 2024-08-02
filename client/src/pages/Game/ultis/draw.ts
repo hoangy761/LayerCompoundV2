@@ -29,7 +29,8 @@ export function drawDot(game: Game, ctx: CanvasRenderingContext2D, dot: IDot, ty
       ctx.arc(
         dot.pos.x / (GAME_WIDTH / MINI_MAP_GAME_WIDTH),
         dot.pos.y / (GAME_WIDTH / MINI_MAP_GAME_WIDTH),
-        dot.size < 3 ? dot.size : dot.size / 3,
+        // dot.size < 3 ? dot.size : dot.size / 3,
+        (dot.size / (GAME_WIDTH / MINI_MAP_GAME_WIDTH)) * 4,
         0,
         Math.PI * 2,
       );

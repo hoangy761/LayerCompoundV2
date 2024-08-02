@@ -1,6 +1,6 @@
 import { COLORS, GAME_WIDTH, INIT_FOODS_NUMBER } from '../constants';
 import { CanvasNameEnum } from '../enums';
-import { IDot } from '../interfaces';
+import { IDot, IPosition } from '../interfaces';
 import { drawDot, getRandomInteger, isEat } from '../ultis';
 import { Game } from './Game';
 
@@ -12,13 +12,16 @@ export class Food {
     this.foods = [];
     this.createFoods(INIT_FOODS_NUMBER);
   }
+  createOneFood(pos: IPosition, color: string, size: number) {
+    this.foods.push({ pos, color, size });
+  }
 
   createFoods(_length: number) {
     for (let i = 0; i < _length; i++) {
       const pos = { x: getRandomInteger(0, GAME_WIDTH), y: getRandomInteger(0, GAME_WIDTH) };
       const color = COLORS[getRandomInteger(0, COLORS.length - 1)];
       const size = getRandomInteger(5, 10);
-      this.foods.push({ pos, color, size });
+      this.createOneFood(pos, color, size);
     }
   }
   newFoods() {

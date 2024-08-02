@@ -17,7 +17,7 @@ export class MiniMap {
       drawDot(
         this.game,
         this.game.ctxMiniMap,
-        { color: 'black', pos: this.game.snake.position, size: 8 },
+        { color: 'black', pos: this.game.snake.position, size: this.game.snakeInitAttributes.style.size / 2 },
         CanvasNameEnum.MINI_MAP,
       );
     }

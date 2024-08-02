@@ -2,8 +2,9 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useRef, useState } from 'react';
 import { Game } from '../Objects/Game';
-import { INIT_SNAKE_SIZE, MINI_MAP_GAME_WIDTH, SNAKE_SPEED } from '../constants';
+import { COLORS, INIT_SNAKE_SIZE, MINI_MAP_GAME_WIDTH, SNAKE_SPEED } from '../constants';
 import { ISnake } from '../interfaces';
+import { getRandomInteger } from '../ultis';
 
 const snakeInitAttributes: ISnake = {
   isAlive: true,
@@ -11,8 +12,8 @@ const snakeInitAttributes: ISnake = {
   tailPositions: [],
   positionCollision: { x: 0, y: 0 },
   style: {
-    borderColor: 'green',
-    color: 'red',
+    borderColor: COLORS[getRandomInteger(0, COLORS.length - 1)],
+    color: COLORS[getRandomInteger(0, COLORS.length - 1)],
     size: INIT_SNAKE_SIZE,
   },
   styleShadow: {
