@@ -57,18 +57,30 @@ export class Game {
       window.alert('chạm vào vùng FreeFire rôi =((');
       this.snake.initSnake();
     }
-    setTimeout(() => {
-      this.loop();
-    }, 50);
+    return this.getSnakeAttributes();
   }
 
   clearScreen() {
     if (this.ctx && this.ctxMiniMap) {
+      //clear Screen background
       this.ctx.fillStyle = '#f1f2f2';
       this.ctx.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
+      //clear miniMap background
       this.ctxMiniMap.fillStyle = 'rgba(174, 174, 174, 0.5)';
       this.ctxMiniMap.fillRect(0, 0, MINI_MAP_GAME_WIDTH, MINI_MAP_GAME_WIDTH);
+    }
+  }
+
+  clearGameBackground() {
+    if (this.ctx && this.ctxMiniMap) {
+      //clear Game background x
+      this.ctx.fillStyle = 'black';
+      this.ctx.fillRect(SCREEN_WIDTH, 0, GAME_WIDTH - SCREEN_WIDTH, SCREEN_HEIGHT);
+
+      //clear Game background y
+      this.ctx.fillStyle = 'black';
+      this.ctx.fillRect(0, SCREEN_HEIGHT, GAME_WIDTH, GAME_WIDTH - SCREEN_HEIGHT);
     }
   }
 
@@ -87,5 +99,7 @@ export class Game {
     this.food.draw();
     this.snake.draw();
     this.screen.update();
+    this.screen.draw();
+    this.clearGameBackground();
   }
 }

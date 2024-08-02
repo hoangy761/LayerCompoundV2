@@ -58,24 +58,20 @@ export class Snake {
   }
   handleMouseDown() {
     this.isMouseDown = true;
-    console.log('mousedown');
   }
 
   handleMouseUp() {
     this.isMouseDown = false;
-    console.log('mouseup');
   }
   handleKeyDown(event: KeyboardEvent) {
     if (event.code === 'Space') {
       this.isMouseDown = true;
-      console.log('Space key down');
     }
   }
 
   handleKeyUp(event: KeyboardEvent) {
     if (event.code === 'Space') {
       this.isMouseDown = false;
-      console.log('Space key up');
     }
   }
 
@@ -97,13 +93,10 @@ export class Snake {
       // this.position = newTailPosition;
     }
   }
-  update() {
-    // cos = ke / huyen => k = cos * h
-    // this.position.x += Math.cos(this.angle) * SNAKE_SPEED;
-    // this.position.y += Math.sin(this.angle) * SNAKE_SPEED;
+  run() {
     if (this.game.snakeInitAttributes.tailPositions.length > INIT_SNAKE_LENGTH) {
       if (this.isMouseDown) {
-        this.game.snakeInitAttributes.speed = SNAKE_SPEED * 3;
+        this.game.snakeInitAttributes.speed = SNAKE_SPEED * 2;
         this.game.snakeInitAttributes.tailPositions.pop();
       } else {
         this.game.snakeInitAttributes.speed = SNAKE_SPEED;
@@ -119,14 +112,16 @@ export class Snake {
     this.game.snakeInitAttributes.tailPositions.unshift(newTailPosition);
     this.game.snakeInitAttributes.tailPositions.pop();
     this.position = newTailPosition;
-
+  }
+  update() {
+    this.run();
     this.game.snakeInitAttributes.positionCollision = getPointOnCircumference(
       this.position,
       INIT_SNAKE_SIZE,
       this.angle,
     );
   }
-  draw() {
+  drawSnake() {
     //draw shadow
     for (let index = this.game.snakeInitAttributes.tailPositions.length - 1; index >= 1; index--) {
       if (this.game.ctx) {
@@ -170,5 +165,8 @@ export class Snake {
     //draw head
     //draw eyes
     this.eye.draw();
+  }
+  draw() {
+    this.drawSnake();
   }
 }

@@ -7,7 +7,6 @@ export class Background {
   constructor(_game: Game) {
     this.game = _game;
   }
-  update() {}
   drawLine(startPos: IPosition, endPos: IPosition) {
     if (this.game.ctx) {
       this.game.ctx.strokeStyle = '#8f8f8f';
@@ -18,6 +17,8 @@ export class Background {
       this.game.ctx.stroke();
     }
   }
+  update() {}
+
   draw() {
     const firstLineX = GRID_SIZE - (this.game.snake.position.x % GRID_SIZE);
     let currentLineX = firstLineX;

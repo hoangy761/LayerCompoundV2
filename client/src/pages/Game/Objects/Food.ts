@@ -1,4 +1,4 @@
-import { COLORS, GAME_WIDTH, INIT_FOODS_NUMBER, INIT_SNAKE_SIZE } from '../constants';
+import { COLORS, GAME_WIDTH, INIT_FOODS_NUMBER } from '../constants';
 import { CanvasNameEnum } from '../enums';
 import { IDot } from '../interfaces';
 import { drawDot, getRandomInteger, isEat } from '../ultis';
@@ -21,26 +21,40 @@ export class Food {
       this.foods.push({ pos, color, size });
     }
   }
-
-  update() {
-    for (let i = 0; i < this.foods.length; i++) {
-      const isMatch = isEat(this.game.snake.position, INIT_SNAKE_SIZE, this.game.snake.angle, this.foods[i].pos);
-      if (isMatch) {
-        this.game.snake.growth(this.foods[i].size);
-        this.foods.splice(i, 1);
-      }
-    }
-    setTimeout(() => {
+  newFoods() {
+    setInterval(() => {
       if (this.foods.length < INIT_FOODS_NUMBER) {
         this.createFoods(INIT_FOODS_NUMBER - this.foods.length);
       }
     }, 10000);
   }
-  draw() {
+  checkSnakeEatFood() {
+    for (let i = 0; i < this.foods.length; i++) {
+      const isMatch = isEat(
+        this.game.snake.position,
+        this.game.snakeInitAttributes.style.size,
+        this.game.snake.angle,
+        this.foods[i].pos,
+      );
+      if (isMatch) {
+        this.game.snake.growth(this.foods[i].size);
+        this.foods.splice(i, 1);
+      }
+    }
+  }
+  drawFoods() {
     for (let i = 0; i < this.foods.length; i++) {
       if (this.game.ctx && this.game.ctxMiniMap) {
         drawDot(this.game, this.game.ctx, this.foods[i], CanvasNameEnum.GAME);
       }
     }
+  }
+  update() {
+    this.checkSnakeEatFood();
+    this.newFoods();
+  }
+
+  draw() {
+    this.drawFoods();
   }
 }

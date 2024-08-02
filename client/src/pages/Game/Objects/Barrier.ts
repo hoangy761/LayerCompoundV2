@@ -10,7 +10,7 @@ export class Barrier {
   update() {}
   drawLineWarning(startPos: IPosition, endPos: IPosition, _lineWidth: number) {
     if (this.game.ctx) {
-      this.game.ctx.strokeStyle = 'red';
+      this.game.ctx.strokeStyle = 'black';
       this.game.ctx.lineWidth = _lineWidth;
       this.game.ctx.beginPath();
       this.game.ctx.moveTo(startPos.x, startPos.y);
