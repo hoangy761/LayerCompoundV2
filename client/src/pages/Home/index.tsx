@@ -16,7 +16,7 @@ const Home = () => {
   return (
     <div>
       <PageTitle title="LayerC | Home" />
-      <Navigate to="/game" />
+      <Navigate to="/game-2" />
       {/* <p>Contract Address: {contractAddress}</p>
       <p>Check console for Contract ABI</p> */}
       <p>HÈ Lố</p>

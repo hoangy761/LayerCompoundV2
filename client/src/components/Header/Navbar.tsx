@@ -23,6 +23,7 @@ const Navbar = () => {
     // { to: '/staking', name: 'Staking', icon: <Bitcoin03Icon /> },
     // { to: '/stats', name: 'Stats', icon: <AnalysisTextLinkIcon /> },
     { to: '/game', name: 'Game', icon: <GameboyIcon /> },
+    { to: '/game-v2', name: 'Game V2', icon: <GameboyIcon /> },
   ];
   const path = useLocation();
   console.log(path.pathname);
