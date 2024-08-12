@@ -22,7 +22,7 @@ class SocketIoService {
   init(server: HttpServer): void {
     this.io = new SocketIOServer(server, {
       cors: {
-        origin: config.CLIENT_URL,
+        origin: [config.CLIENT_URL ||"http://localhost:5173" , "https://layer-compound-v2.vercel.app"],
         methods: ["GET", "POST"],
       },
     });
