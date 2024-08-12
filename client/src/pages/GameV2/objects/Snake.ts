@@ -167,57 +167,16 @@ export class Snake {
     }
   }
   drawSnake() {
-    //draw shadow
-    // for (let index = this.game.attributes.snake.tailPositions.length - 1; index >= 1; index--) {
-    //   if (this.game.ctx) {
-    //     drawDot(
-    //       this.game,
-    //       this.game.ctx,
-    //       {
-    //         color: this.game.attributes.snake.styleShadow.color,
-    //         pos: {
-    //           x: this.game.attributes.snake.tailPositions[index].x,
-    //           y: this.game.attributes.snake.tailPositions[index].y,
-    //         },
-    //         size: this.game.attributes.snake.styleShadow.size,
-    //         borderColor: this.game.attributes.snake.styleShadow.borderColor,
-    //       },
-    //       CanvasNameEnum.GAME,
-    //     );
-    //   }
-    // }
-    // //draw body
-    // for (let index = this.game.attributes.snake.tailPositions.length - 1; index >= 0; index -= 3) {
-    //   if (this.game.ctx) {
-    //     drawDot(
-    //       this.game,
-    //       this.game.ctx,
-    //       {
-    //         color: this.game.attributes.snake.style.color,
-    //         pos: {
-    //           x: this.game.attributes.snake.tailPositions[index].x,
-    //           y: this.game.attributes.snake.tailPositions[index].y,
-    //         },
-    //         size: this.game.attributes.snake.style.size,
-    //         borderColor: this.game.attributes.snake.style.borderColor,
-    //       },
-    //       CanvasNameEnum.GAME,
-    //     );
-    //   }
-    // }
     this.drawBody(this.game.attributes.snake);
     this.game.attributesOtherSnake.forEach((player) => {
       this.drawBody(player.snake);
     });
-    //draw head
     // draw eyes
     this.eye.draw();
     this.eye.drawOtherSnake();
   }
 
   draw() {
-    if (this.game.attributes.snake.isAlive) {
-      this.drawSnake();
-    }
+    this.drawSnake();
   }
 }
