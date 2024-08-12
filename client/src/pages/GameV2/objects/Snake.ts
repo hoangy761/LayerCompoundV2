@@ -4,7 +4,7 @@ import { GAME_WIDTH, INIT_SNAKE_LENGTH, INIT_SNAKE_SIZE, SCREEN_HEIGHT, SCREEN_W
 // import { CanvasNameEnum } from '../enums';
 import { Eye } from './Eye';
 import { Game } from './Game';
-import { IPosition } from '../interfaces';
+import { IPosition, ISnake } from '../interfaces';
 import { drawDot, getPointOnCircumference, getRandomInteger } from '../ultis';
 import { CanvasNameEnum } from '../enums';
 
@@ -16,21 +16,21 @@ export class Snake {
   isMouseDown: boolean;
   constructor(_game: Game) {
     this.game = _game;
-    this.position = this.game.snakeInitAttributes.position;
+    this.position = this.game.attributes.snake.position;
     this.eye = new Eye(this);
-    this.angle = this.game.snakeInitAttributes.angle;
+    this.angle = this.game.attributes.snake.angle;
 
     // this.createTail(INIT_SNAKE_LENGTH);
     this.isMouseDown = false;
     // this.listenMouseEvent();
   }
   // initSnake() {
-  //   // this.game.snakeInitAttributes.tailPositions = [];
+  //   // this.game.attributes.snake.tailPositions = [];
   //   this.position = {
   //     x: getRandomInteger(SCREEN_WIDTH / 2, GAME_WIDTH - SCREEN_WIDTH / 2),
   //     y: getRandomInteger(SCREEN_HEIGHT / 2, GAME_WIDTH - SCREEN_HEIGHT / 2),
   //   };
-  //   this.game.snakeInitAttributes.positionCollision = { x: this.position.x + INIT_SNAKE_SIZE, y: this.position.y };
+  //   this.game.attributes.snake.positionCollision = { x: this.position.x + INIT_SNAKE_SIZE, y: this.position.y };
   //   // this.createTail(INIT_SNAKE_LENGTH);
   // }
 
@@ -76,7 +76,7 @@ export class Snake {
 
   // createTail(initLenght: number) {
   //   for (let index = 0; index < initLenght; index++) {
-  //     this.game.snakeInitAttributes.tailPositions.push({
+  //     this.game.attributes.snake.tailPositions.push({
   //       x: this.position.x - SNAKE_SPEED * index,
   //       y: this.position.y,
   //     });
@@ -85,108 +85,138 @@ export class Snake {
   // growth(numberCalo: number) {
   //   for (let i = 0; i < numberCalo; i++) {
   //     const newTailPosition = {
-  //       x: this.position.x + Math.cos(this.angle) * this.game.snakeInitAttributes.speed,
-  //       y: this.position.y + Math.sin(this.angle) * this.game.snakeInitAttributes.speed,
+  //       x: this.position.x + Math.cos(this.angle) * this.game.attributes.snake.speed,
+  //       y: this.position.y + Math.sin(this.angle) * this.game.attributes.snake.speed,
   //     };
-  //     this.game.snakeInitAttributes.tailPositions.push(newTailPosition);
+  //     this.game.attributes.snake.tailPositions.push(newTailPosition);
   //     // this.position = newTailPosition;
   //   }
   // }
   // feces() {
   //   this.game.food.createOneFood(
-  //     this.game.snakeInitAttributes.tailPositions[this.game.snakeInitAttributes.tailPositions.length - 1],
+  //     this.game.attributes.snake.tailPositions[this.game.attributes.snake.tailPositions.length - 1],
   //     COLORS[getRandomInteger(0, COLORS.length - 1)],
   //     1,
   //   );
   // }
   run() {
-    if (this.game.snakeInitAttributes.tailPositions.length > INIT_SNAKE_LENGTH) {
+    if (this.game.attributes.snake.tailPositions.length > INIT_SNAKE_LENGTH) {
       if (this.isMouseDown) {
-        this.game.snakeInitAttributes.speed = SNAKE_SPEED * 2;
-        this.game.snakeInitAttributes.tailPositions = this.game.snakeInitAttributes.tailPositions.slice(0, -3);
+        this.game.attributes.snake.speed = SNAKE_SPEED * 2;
+        this.game.attributes.snake.tailPositions = this.game.attributes.snake.tailPositions.slice(0, -3);
 
         // this.feces();
       } else {
-        this.game.snakeInitAttributes.speed = SNAKE_SPEED;
+        this.game.attributes.snake.speed = SNAKE_SPEED;
       }
     } else {
-      this.game.snakeInitAttributes.speed = SNAKE_SPEED;
+      this.game.attributes.snake.speed = SNAKE_SPEED;
     }
 
     const newTailPosition = {
-      x: this.position.x + Math.cos(this.angle) * this.game.snakeInitAttributes.speed,
-      y: this.position.y + Math.sin(this.angle) * this.game.snakeInitAttributes.speed,
+      x: this.position.x + Math.cos(this.angle) * this.game.attributes.snake.speed,
+      y: this.position.y + Math.sin(this.angle) * this.game.attributes.snake.speed,
     };
-    this.game.snakeInitAttributes.tailPositions.unshift(newTailPosition);
-    this.game.snakeInitAttributes.tailPositions.pop();
+    this.game.attributes.snake.tailPositions.unshift(newTailPosition);
+    this.game.attributes.snake.tailPositions.pop();
     this.position = newTailPosition;
   }
   update() {
     this.run();
-    this.game.snakeInitAttributes.positionCollision = getPointOnCircumference(
-      this.position,
-      INIT_SNAKE_SIZE,
-      this.angle,
-    );
+    this.game.attributes.snake.positionCollision = getPointOnCircumference(this.position, INIT_SNAKE_SIZE, this.angle);
   }
-  drawSnake() {
+
+  drawBody(_snake: ISnake) {
     //draw shadow
-    for (let index = this.game.snakeInitAttributes.tailPositions.length - 1; index >= 1; index--) {
+    for (let index = _snake.tailPositions.length - 1; index >= 1; index--) {
       if (this.game.ctx) {
         drawDot(
           this.game,
           this.game.ctx,
           {
-            color: this.game.snakeInitAttributes.styleShadow.color,
+            color: _snake.styleShadow.color,
             pos: {
-              x: this.game.snakeInitAttributes.tailPositions[index].x,
-              y: this.game.snakeInitAttributes.tailPositions[index].y,
+              x: _snake.tailPositions[index].x,
+              y: _snake.tailPositions[index].y,
             },
-            size: this.game.snakeInitAttributes.styleShadow.size,
-            borderColor: this.game.snakeInitAttributes.styleShadow.borderColor,
+            size: _snake.styleShadow.size,
+            borderColor: _snake.styleShadow.borderColor,
           },
           CanvasNameEnum.GAME,
         );
       }
     }
     //draw body
-    for (let index = this.game.snakeInitAttributes.tailPositions.length - 1; index >= 0; index -= 3) {
+    for (let index = _snake.tailPositions.length - 1; index >= 0; index -= 3) {
       if (this.game.ctx) {
         drawDot(
           this.game,
           this.game.ctx,
           {
-            color: this.game.snakeInitAttributes.style.color,
+            color: _snake.style.color,
             pos: {
-              x: this.game.snakeInitAttributes.tailPositions[index].x,
-              y: this.game.snakeInitAttributes.tailPositions[index].y,
+              x: _snake.tailPositions[index].x,
+              y: _snake.tailPositions[index].y,
             },
-            size: this.game.snakeInitAttributes.style.size,
-            borderColor: this.game.snakeInitAttributes.style.borderColor,
+            size: _snake.style.size,
+            borderColor: _snake.style.borderColor,
           },
           CanvasNameEnum.GAME,
         );
       }
     }
-
+  }
+  drawSnake() {
+    //draw shadow
+    // for (let index = this.game.attributes.snake.tailPositions.length - 1; index >= 1; index--) {
+    //   if (this.game.ctx) {
+    //     drawDot(
+    //       this.game,
+    //       this.game.ctx,
+    //       {
+    //         color: this.game.attributes.snake.styleShadow.color,
+    //         pos: {
+    //           x: this.game.attributes.snake.tailPositions[index].x,
+    //           y: this.game.attributes.snake.tailPositions[index].y,
+    //         },
+    //         size: this.game.attributes.snake.styleShadow.size,
+    //         borderColor: this.game.attributes.snake.styleShadow.borderColor,
+    //       },
+    //       CanvasNameEnum.GAME,
+    //     );
+    //   }
+    // }
+    // //draw body
+    // for (let index = this.game.attributes.snake.tailPositions.length - 1; index >= 0; index -= 3) {
+    //   if (this.game.ctx) {
+    //     drawDot(
+    //       this.game,
+    //       this.game.ctx,
+    //       {
+    //         color: this.game.attributes.snake.style.color,
+    //         pos: {
+    //           x: this.game.attributes.snake.tailPositions[index].x,
+    //           y: this.game.attributes.snake.tailPositions[index].y,
+    //         },
+    //         size: this.game.attributes.snake.style.size,
+    //         borderColor: this.game.attributes.snake.style.borderColor,
+    //       },
+    //       CanvasNameEnum.GAME,
+    //     );
+    //   }
+    // }
+    this.drawBody(this.game.attributes.snake);
+    this.game.attributesOtherSnake.forEach((player) => {
+      this.drawBody(player.snake);
+    });
     //draw head
     // draw eyes
     this.eye.draw();
-    // if (this.game.ctx) {
-    //   drawDot(
-    //     this.game,
-    //     this.game.ctx,
-    //     {
-    //       color: 'red',
-    //       pos: { x: this.game.snakeInitAttributes.position.x, y: this.game.snakeInitAttributes.position.y },
-    //       size: 600,
-    //     },
-    //     CanvasNameEnum.GAME,
-    //   );
-    // }
+    this.eye.drawOtherSnake();
   }
+
   draw() {
-    if (this.game.snakeInitAttributes.isAlive) {
+    if (this.game.attributes.snake.isAlive) {
       this.drawSnake();
     }
   }

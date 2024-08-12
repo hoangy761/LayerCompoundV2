@@ -24,8 +24,8 @@ export class Screen {
       this.game.barrier.drawLineTop(
         SCREEN_HEIGHT / 2 -
           this.game.snake.position.y -
-          this.game.snakeInitAttributes.style.size -
-          this.game.snakeInitAttributes.style.size / 2,
+          this.game.attributes.snake.style.size -
+          this.game.attributes.snake.style.size / 2,
       );
     }
 
@@ -37,8 +37,8 @@ export class Screen {
         this.game.snake.position.y +
           SCREEN_HEIGHT / 2 -
           GAME_WIDTH +
-          this.game.snakeInitAttributes.style.size * 2 -
-          this.game.snakeInitAttributes.style.size / 2,
+          this.game.attributes.snake.style.size * 2 -
+          this.game.attributes.snake.style.size / 2,
       );
     }
     if (this.game.snake.position.x + SCREEN_WIDTH / 2 - GAME_WIDTH >= 0) {

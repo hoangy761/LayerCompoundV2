@@ -15,7 +15,8 @@ export class Game {
 
   foods: IDot[];
 
-  snakeInitAttributes: IPlayer;
+  attributes: IPlayer;
+  attributesOtherSnake: IPlayer[];
   snake: Snake;
   screen: Screen;
   barrier: Barrier;
@@ -28,8 +29,6 @@ export class Game {
     _canvasMiniMap: HTMLCanvasElement,
     _food: IDot[],
     mySnake: IPlayer,
-    //_gameData: IDataRealTime
-    // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
     otherSnakes: IPlayer[],
   ) {
     this.canvas = _canvas;
@@ -40,7 +39,8 @@ export class Game {
     this.canvas.height = GAME_WIDTH;
 
     //snake
-    this.snakeInitAttributes = mySnake;
+    this.attributes = mySnake;
+    this.attributesOtherSnake = otherSnakes;
     this.snake = new Snake(this);
 
     //screen
