@@ -2,68 +2,57 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import PageTitle from '~/components/PageTitle/PageTitle';
-import WorldSnake from './components/WorldSnake';
-import LeaderBoard from './components/LeaderBoard';
-import { ISnake } from './interfaces';
-import { INIT_SNAKE_SIZE, SNAKE_SPEED } from './constants';
+import { IDataRealTime, IPosition, ISnake } from './interfaces';
 import GameHome from './components/GameHome';
 import { socket } from '~/services/socket';
+import GamePlay from './components/GamePlay';
+import { v4 as uuidv4 } from 'uuid';
+import { useWalletProvider } from '~/hooks/Wallet/useWalletProvider';
 
 const GameV2 = () => {
   const [name, setName] = useState<string>('');
   const [isGameLive, setIsGameLive] = useState<boolean>(false);
-  const [snakeAttributes, setSnakeAttributes] = useState<ISnake>({
-    isAlive: true,
-    speed: SNAKE_SPEED + 4,
-    tailPositions: [],
-    positionCollision: { x: 0, y: 0 },
-    style: {
-      borderColor: 'green',
-      color: 'red',
-      size: INIT_SNAKE_SIZE,
-    },
-    styleShadow: {
-      borderColor: 'rgba(0,0,0,0.1)',
-      color: 'rgba(0,0,0,0.1)',
-      size: INIT_SNAKE_SIZE + INIT_SNAKE_SIZE / 9,
-    },
-  });
+  const [gameData, setGameData] = useState<IDataRealTime | null>(null);
+  const [angle, setAngle] = useState<number>(0);
 
+  const { selectedAccount } = useWalletProvider();
   useEffect(() => {
     socket.connect();
-    socket.emit('online');
-
-    // socket.on(socketMessages.RECEIVE_NOTIFY, (data) => {
-    //     console.log('heloHeader', data);
-    //     setNotifications((prev) => [data, ...prev]);
-    //     setNotifying(true);
-    //     toast(data.content || 'Có thông báo mới!');
-    // });
-
-    // Cleanup to avoid multiple connections and event listeners
+    socket.on('data_game', (data) => {
+      setGameData(data);
+      console.log(data);
+    });
     return () => {
-      // socket.off(socketMessages.RECEIVE_MESSAGE);
-      // socket.off(socketMessages.RECEIVE_NOTIFY);
+      socket.off('data_game');
       socket.disconnect();
     };
   }, []);
 
+  useEffect(() => {
+    socket.emit('mouse_move', { angle, userId: selectedAccount });
+
+    return () => {
+      socket.off('mouse_move');
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [angle]);
+
   const handlePlayGame = () => {
     setIsGameLive(true);
+    const userInfor = {
+      userId: selectedAccount,
+      name,
+      roomId: 100,
+    };
+    socket.emit('start_game', userInfor);
   };
   return (
     <>
+      <PageTitle title="LayerC | GameV2" />
       {!isGameLive ? (
         <GameHome handlePlayGame={handlePlayGame} name={name} setName={setName} />
       ) : (
-        <div className="relative">
-          <PageTitle title="LayerC | GameV2" />
-
-          <div className="absolute z-40">
-            <LeaderBoard />
-          </div>
-          <WorldSnake snakeAttributes={snakeAttributes} setSnakeAttributes={setSnakeAttributes} />
-        </div>
+        <GamePlay gameData={gameData} setAngle={setAngle} />
       )}
     </>
   );

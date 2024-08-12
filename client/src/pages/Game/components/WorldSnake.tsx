@@ -34,8 +34,6 @@ const WorldSnake: React.FC<WorldSnakeProps> = ({ snakeAttributes, setSnakeAttrib
   const canvasRefMiniMap = useRef<HTMLCanvasElement>(null);
   // const [snakeAttributes, setSnakeAttributes] = useState<ISnake>();
 
-  console.log('re-render', snakeAttributes);
-
   useEffect(() => {
     const canvas = canvasRef.current;
     const canvasMiniMap = canvasRefMiniMap.current;
@@ -46,10 +44,7 @@ const WorldSnake: React.FC<WorldSnakeProps> = ({ snakeAttributes, setSnakeAttrib
       intervalRef.current = window.setInterval(() => {
         const newAttributes = gameInstance.loop();
         if (JSON.stringify(newAttributes) !== JSON.stringify(snakeAttributes)) {
-          console.log('Updating snake attributes 2:', snakeAttributes);
-          console.log('re-render 1', snakeAttributes);
           setSnakeAttributes(newAttributes);
-          console.log('re-render 2', snakeAttributes);
         }
       }, 50);
     }

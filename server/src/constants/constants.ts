@@ -5,8 +5,6 @@ export const GAME_WIDTH = 3200;
 //screen is visible
 export const SCREEN_WIDTH = 1000;
 export const SCREEN_HEIGHT = 500;
-// export const SCREEN_WIDTH = screen.width;
-// export const SCREEN_HEIGHT = screen.height;
 
 //miniMap width
 export const MINI_MAP_GAME_WIDTH = GAME_WIDTH / 20;
@@ -29,14 +27,14 @@ export const INIT_FOODS_NUMBER = 50;
 
 //color
 export const COLORS = [
-  '#7C00FE',
-  '#F9E400',
-  '#FFAF00',
-  '#F5004F',
-  '#FFB200',
-  '#E4003A',
-  '#EECEB9',
-  '#FEFBD8',
-  '#E8DFCA',
-  '#1A4D2E',
+  "#7C00FE",
+  "#F9E400",
+  "#FFAF00",
+  "#F5004F",
+  "#FFB200",
+  "#E4003A",
+  "#EECEB9",
+  "#FEFBD8",
+  "#E8DFCA",
+  "#1A4D2E",
 ];

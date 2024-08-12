@@ -23,7 +23,6 @@ const Game = () => {
       size: INIT_SNAKE_SIZE + INIT_SNAKE_SIZE / 9,
     },
   });
-  console.log('HIHI', snakeAttributes);
   return (
     <div className="relative">
       <PageTitle title="LayerC | Game" />

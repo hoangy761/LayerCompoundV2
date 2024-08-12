@@ -26,7 +26,6 @@ const Navbar = () => {
     { to: '/game-v2', name: 'Game V2', icon: <GameboyIcon /> },
   ];
   const path = useLocation();
-  console.log(path.pathname);
   const [openTippy, setOpenTippy] = useState<boolean>(false);
   const handleOpenTippy = () => {
     setOpenTippy(!openTippy);

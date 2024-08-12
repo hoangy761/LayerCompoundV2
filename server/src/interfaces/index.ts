@@ -26,9 +26,14 @@ export interface IDot {
   size: number;
   borderColor?: string;
 }
+export interface IStyle {
+  color: string;
+  size: number;
+  borderColor?: string;
+}
 export interface IUserPoint {
-  id: string;
-  name?: string;
+  id: number;
+  name: string;
   userScore: number; // or userPoints, points, score
 }
 
@@ -39,21 +44,13 @@ export interface ISnake {
   isAlive: boolean;
   position: IPosition;
   positionCollision: IPosition;
-  style: {
-    size: number;
-    color: string;
-    borderColor?: string;
-  };
-  styleShadow: {
-    size: number;
-    color: string;
-    borderColor?: string;
-  };
+  style: IStyle;
+  styleShadow: IStyle;
 }
 
 export interface IPlayer {
   id: string;
-  name?: string;
+  name: string;
   snake: ISnake;
 }
 
