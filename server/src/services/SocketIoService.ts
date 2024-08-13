@@ -8,6 +8,7 @@ import { createFoods } from "../utils/game/food";
 import { createNewPlayers } from "../utils";
 import { log } from "console";
 import { getPointOnCircumference } from "../utils/game/position";
+import { Snake } from "../objects/Snake";
 let dataGame: IDataRealTime = {
   foods: createFoods(100),
   players: [],
@@ -22,7 +23,10 @@ class SocketIoService {
   init(server: HttpServer): void {
     this.io = new SocketIOServer(server, {
       cors: {
-        origin: [config.CLIENT_URL ||"http://localhost:5173" , "https://layer-compound-v2.vercel.app"],
+        origin: [
+          config.CLIENT_URL || "http://localhost:5173",
+          "https://layer-compound-v2.vercel.app",
+        ],
         methods: ["GET", "POST"],
       },
     });
@@ -34,10 +38,19 @@ class SocketIoService {
         socket.join(roomId);
         const isExit = dataGame.players.some((player) => player.id === userId);
         if (!isExit) {
-          dataGame.players.push(createNewPlayers(userId, name));
+          const newPlayer = createNewPlayers(userId, name);
+
+          dataGame.players.push({
+            id: newPlayer.id,
+            name: newPlayer.name,
+            snake: new Snake(newPlayer.snake),
+          });
         }
         setInterval(() => {
-          dataGame = updateDataGame(dataGame) || dataGame;
+          dataGame.players.forEach((player) => {
+            player.snake.run();
+            player.snake.eat(dataGame.foods);
+          });
           socket.emit("data_game", dataGame);
           // socket.to(roomId).emit("data_game", dataGame);
         }, 50);
@@ -76,55 +89,6 @@ class SocketIoService {
       this.io.to("roomName").emit("start_game");
     }
   }
-}
-// function snakeAlive (_dataGame: IDataRealTime): IDataRealTime {
-//   return _dataGame.players.filter(player=> {
-
-//   })
-// }
-function updateDataGame(_dataGame: IDataRealTime): IDataRealTime {
-  const updatedPlayers = _dataGame.players.map((player) => {
-    const newTailPosition = {
-      x:
-        player.snake.position.x +
-        Math.cos(player.snake.angle) * player.snake.speed,
-      y:
-        player.snake.position.y +
-        Math.sin(player.snake.angle) * player.snake.speed,
-    };
-
-    // Update the snake's tail positions
-    const updatedTailPositions = [
-      newTailPosition,
-      ...player.snake.tailPositions.slice(0, -1),
-    ];
-
-    // Update the snake's position
-    const updatedPosition = newTailPosition;
-
-    // Calculate the new position for collision
-    const updatedPositionCollision = getPointOnCircumference(
-      updatedPosition,
-      player.snake.style.size,
-      player.snake.angle
-    );
-
-    // Return the updated player object
-    return {
-      ...player,
-      snake: {
-        ...player.snake,
-        position: updatedPosition,
-        tailPositions: updatedTailPositions,
-        positionCollision: updatedPositionCollision,
-      },
-    };
-  });
-
-  return {
-    ..._dataGame,
-    players: updatedPlayers,
-  };
 }
 
 const socketIoService = new SocketIoService();

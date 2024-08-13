@@ -1,3 +1,5 @@
+import { Snake } from "../objects/Snake";
+
 export interface IPosition {
   x: number;
   y: number;
@@ -51,7 +53,7 @@ export interface ISnake {
 export interface IPlayer {
   id: string;
   name: string;
-  snake: ISnake;
+  snake: Snake;
 }
 
 export interface IDataRealTime {

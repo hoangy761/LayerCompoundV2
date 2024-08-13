@@ -15,7 +15,7 @@ export const createNewPlayers = (id: string, name: string) => {
     x: getRandomInteger(SCREEN_WIDTH / 2, GAME_WIDTH - SCREEN_WIDTH / 2),
     y: getRandomInteger(SCREEN_HEIGHT / 2, GAME_WIDTH - SCREEN_HEIGHT / 2),
   };
-  const newPlayer: IPlayer = {
+  const newPlayer = {
     id: id,
     name: name,
     snake: {

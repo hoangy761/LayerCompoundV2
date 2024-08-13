@@ -22,3 +22,24 @@ export function getPointOnCircumference(
 
   return { x, y };
 }
+
+export function isEat(
+  centerPos: IPosition,
+  radius: number,
+  angleInDegrees: number,
+  foodPos: IPosition
+): boolean {
+  if (calculateDistance(centerPos, foodPos) <= radius + 10) {
+    return true;
+  }
+  return false;
+}
+
+export function calculateDistance(
+  startPos: IPosition,
+  endPos: IPosition
+): number {
+  const dx = endPos.x - startPos.x;
+  const dy = endPos.y - startPos.y;
+  return Math.sqrt(dx * dx + dy * dy);
+}
