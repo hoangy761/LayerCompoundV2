@@ -63,6 +63,8 @@ export class Snake {
       this.tailPositions.push(newTailPosition);
       // this.position = newTailPosition;
     }
+
+    this.style.size = this.tailPositions.length / 5;
   }
 
   checkDeath() {

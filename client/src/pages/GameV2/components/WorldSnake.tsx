@@ -5,13 +5,15 @@ import { MINI_MAP_GAME_WIDTH, SCREEN_HEIGHT, SCREEN_WIDTH } from '../constants';
 import { IDataRealTime, IPosition } from '../interfaces';
 import { Game } from '../objects';
 import { useWalletProvider } from '~/hooks/Wallet/useWalletProvider';
+import { socket } from '~/services/socket';
 
 interface WorldSnakeProps {
+  setIsGameLive: (_parameter: boolean) => void;
   gameData: IDataRealTime | null;
   setAngle: (_prameter: number) => void;
 }
 
-const WorldSnake: React.FC<WorldSnakeProps> = ({ gameData, setAngle }) => {
+const WorldSnake: React.FC<WorldSnakeProps> = ({ gameData, setAngle, setIsGameLive }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const canvasRefMiniMap = useRef<HTMLCanvasElement>(null);
 
@@ -23,10 +25,16 @@ const WorldSnake: React.FC<WorldSnakeProps> = ({ gameData, setAngle }) => {
     const mySnake = gameData?.players.find((player) => player.id === selectedAccount);
     const otherSnakes = gameData?.players.filter((player) => player.id !== selectedAccount) || [];
     const foods = gameData?.foods || [];
+    if (mySnake?.snake) {
+      if (!mySnake?.snake.isAlive) {
+        window.alert('You Die, New Game?');
+        socket.emit('out_game', { roomId: '100', userId: selectedAccount });
+        setIsGameLive(false);
+      }
+    }
     if (canvas && canvasMiniMap && gameData && mySnake) {
       const gameInstance = new Game(canvas, canvasMiniMap, foods, mySnake, otherSnakes);
       gameInstance.start();
-
       canvas.addEventListener('mousemove', (event: MouseEvent) => {
         const rect = canvas?.getBoundingClientRect();
         if (!rect) return { x: 0, y: 0 };

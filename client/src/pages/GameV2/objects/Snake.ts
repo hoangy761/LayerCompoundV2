@@ -1,11 +1,11 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { GAME_WIDTH, INIT_SNAKE_LENGTH, INIT_SNAKE_SIZE, SCREEN_HEIGHT, SCREEN_WIDTH, SNAKE_SPEED } from '../constants';
+import { GAME_WIDTH, INIT_SNAKE_LENGTH, SNAKE_SPEED } from '../constants';
 // import { CanvasNameEnum } from '../enums';
 import { Eye } from './Eye';
 import { Game } from './Game';
-import { IPosition, ISnake } from '../interfaces';
-import { drawDot, getPointOnCircumference, getRandomInteger } from '../ultis';
+import { IDot, IPosition, ISnake } from '../interfaces';
+import { drawDot, drawText, getPointOnCircumference, getRandomInteger } from '../ultis';
 import { CanvasNameEnum } from '../enums';
 
 export class Snake {
@@ -123,7 +123,11 @@ export class Snake {
   }
   update() {
     this.run();
-    this.game.attributes.snake.positionCollision = getPointOnCircumference(this.position, INIT_SNAKE_SIZE, this.angle);
+    this.game.attributes.snake.positionCollision = getPointOnCircumference(
+      this.position,
+      this.game.attributes.snake.style.size,
+      this.angle,
+    );
   }
 
   drawBody(_snake: ISnake) {
@@ -180,7 +184,20 @@ export class Snake {
     this.eye.drawOtherSnake();
   }
 
+  drawName() {
+    const text: IDot = {
+      color: this.game.attributes.snake.style.color,
+      size: this.game.attributes.snake.style.size / 2,
+      pos: { x: this.position.x, y: this.position.y + this.game.attributes.snake.style.size + 10 },
+      text: this.game.attributes.name,
+    };
+    if (this.game.ctx) {
+      drawText(this.game, this.game.ctx, text, 0.5, CanvasNameEnum.GAME);
+    }
+  }
+
   draw() {
     this.drawSnake();
+    this.drawName();
   }
 }

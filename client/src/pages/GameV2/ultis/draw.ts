@@ -18,6 +18,7 @@ export function drawDot(game: Game, ctx: CanvasRenderingContext2D, dot: IDot, ty
       ctx.fill();
       if (dot.borderColor) {
         ctx.strokeStyle = dot.borderColor;
+        ctx.lineWidth = dot.size / 10;
         ctx.stroke();
       }
     }
@@ -38,6 +39,27 @@ export function drawDot(game: Game, ctx: CanvasRenderingContext2D, dot: IDot, ty
         ctx.strokeStyle = dot.borderColor;
         ctx.stroke();
       }
+    }
+  }
+}
+
+export function drawText(
+  game: Game,
+  ctx: CanvasRenderingContext2D,
+  _text: IDot,
+  _globalAlpha: number,
+  type: CanvasNameEnum,
+) {
+  if (type == CanvasNameEnum.GAME) {
+    if (ctx) {
+      ctx.font = `${_text.size}px Arial`;
+      ctx.fillStyle = _text.color;
+      ctx.globalAlpha = _globalAlpha;
+      ctx.fillText(
+        _text.text || 'Hello world',
+        _text.pos.x - game.screen.position.left,
+        _text.pos.y - game.screen.position.top - SCREEN_WIDTH / 4,
+      );
     }
   }
 }

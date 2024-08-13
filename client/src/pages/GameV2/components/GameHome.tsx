@@ -27,7 +27,6 @@ const GameHome: React.FC<IGameHome> = ({ name, setName, handlePlayGame }) => {
       handlePlayGame();
     }
   }
-  console.log(import.meta.env);
   return (
     <div className="flex justify-center items-center h-screen">
       <form className="w-full max-w-lg" onSubmit={handleSubmit}>
@@ -51,8 +50,6 @@ const GameHome: React.FC<IGameHome> = ({ name, setName, handlePlayGame }) => {
             </Button>
           )}
         </div>
-        {JSON.stringify(import.meta.env.VITE_REACT_APP_SERVER_URL)}
-        {JSON.stringify(import.meta.env)}
       </form>
     </div>
   );

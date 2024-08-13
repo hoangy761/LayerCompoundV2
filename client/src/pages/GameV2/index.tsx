@@ -1,12 +1,9 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import PageTitle from '~/components/PageTitle/PageTitle';
-import { IDataRealTime, IPosition, ISnake } from './interfaces';
+import { IDataRealTime } from './interfaces';
 import GameHome from './components/GameHome';
 import { socket } from '~/services/socket';
 import GamePlay from './components/GamePlay';
-import { v4 as uuidv4 } from 'uuid';
 import { useWalletProvider } from '~/hooks/Wallet/useWalletProvider';
 
 const GameV2 = () => {
@@ -35,15 +32,14 @@ const GameV2 = () => {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [angle]);
-
   const handlePlayGame = () => {
     setIsGameLive(true);
     const userInfor = {
       userId: selectedAccount,
       name,
-      roomId: 100,
+      roomId: '100',
     };
-    socket.emit('start_game', userInfor);
+    socket.emit('join_game', userInfor);
   };
   return (
     <>
@@ -51,7 +47,7 @@ const GameV2 = () => {
       {!isGameLive ? (
         <GameHome handlePlayGame={handlePlayGame} name={name} setName={setName} />
       ) : (
-        <GamePlay gameData={gameData} setAngle={setAngle} />
+        <GamePlay gameData={gameData} setAngle={setAngle} setIsGameLive={setIsGameLive} />
       )}
     </>
   );

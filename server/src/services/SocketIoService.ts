@@ -3,11 +3,9 @@ import { Server as SocketIOServer, Socket } from "socket.io";
 import { Server as HttpServer } from "http";
 import config from "../config/config";
 import { IDataRealTime, IDot } from "../interfaces";
-import { COLORS, INIT_SNAKE_SIZE, SNAKE_SPEED } from "../constants";
+import { COLORS } from "../constants";
 import { createFoods } from "../utils/game/food";
 import { createNewPlayers } from "../utils";
-import { log } from "console";
-import { getPointOnCircumference } from "../utils/game/position";
 import { Snake } from "../objects/Snake";
 import { getRandomInteger } from "../utils/commons";
 let dataGame: IDataRealTime = {
@@ -34,9 +32,10 @@ class SocketIoService {
 
     this.io.on("connection", (socket: Socket) => {
       console.log("User connect ", socket.id);
-      socket.on("start_game", (data) => {
+      socket.on("join_game", (data) => {
         const { name, userId, roomId } = data;
         socket.join(roomId);
+        console.log(`${userId} join room: ${roomId} Successfully!`);
         const isExit = dataGame.players.some((player) => player.id === userId);
         if (!isExit) {
           const newPlayer = createNewPlayers(userId, name);
@@ -54,6 +53,15 @@ class SocketIoService {
         const player = dataGame.players.find((player) => player.id === userId);
         if (player) {
           player.snake.angle = angle;
+        }
+      });
+      socket.on("out_game", (data) => {
+        const { roomId, userId } = data;
+        try {
+          socket.leave(roomId);
+          console.log(`${userId} out room: ${roomId} Successfully!`);
+        } catch (error) {
+          console.log(`${userId} out room: ${roomId} Fail!`);
         }
       });
 
@@ -88,7 +96,8 @@ class SocketIoService {
         return false; // Remove the player from the array
       });
 
-      this.io?.emit("data_game", dataGame);
+      // this.io?.emit("data_game", dataGame);
+      this.io?.to("100").emit("data_game", dataGame);
       // socket.to(roomId).emit("data_game", dataGame);
     }, 50);
   }

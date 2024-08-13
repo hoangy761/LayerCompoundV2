@@ -25,6 +25,7 @@ export interface IDot {
   color: string;
   size: number;
   borderColor?: string;
+  text?: string;
 }
 export interface IUserPoint {
   id: string;

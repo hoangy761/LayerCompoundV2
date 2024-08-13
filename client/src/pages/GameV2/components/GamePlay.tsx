@@ -4,10 +4,11 @@ import WorldSnake from './WorldSnake';
 import { IDataRealTime, IUserPoint } from '../interfaces';
 
 interface IGamePlayPros {
+  setIsGameLive: (_parameter: boolean) => void;
   gameData: IDataRealTime | null;
   setAngle: (_prameter: number) => void;
 }
-const GamePlay: React.FC<IGamePlayPros> = ({ gameData, setAngle }) => {
+const GamePlay: React.FC<IGamePlayPros> = ({ gameData, setAngle, setIsGameLive }) => {
   const [userPoints, setUserPoints] = useState<IUserPoint[] | null>(null);
   useEffect(() => {
     let dataPoints: IUserPoint[] = [];
@@ -28,7 +29,7 @@ const GamePlay: React.FC<IGamePlayPros> = ({ gameData, setAngle }) => {
       <div className="absolute z-40">
         <LeaderBoard userPoints={userPoints} />
       </div>
-      <WorldSnake gameData={gameData} setAngle={setAngle} />
+      <WorldSnake gameData={gameData} setAngle={setAngle} setIsGameLive={setIsGameLive} />
     </div>
   );
 };

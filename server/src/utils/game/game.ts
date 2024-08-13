@@ -1,12 +1,11 @@
 import {
   COLORS,
   GAME_WIDTH,
-  INIT_SNAKE_SIZE,
+  INIT_SNAKE_LENGTH,
   SCREEN_HEIGHT,
   SCREEN_WIDTH,
   SNAKE_SPEED,
 } from "../../constants";
-import { IPlayer } from "../../interfaces";
 import { getRandomInteger } from "../commons";
 import { createTail } from "./position";
 
@@ -15,6 +14,7 @@ export const createNewPlayers = (id: string, name: string) => {
     x: getRandomInteger(SCREEN_WIDTH / 2, GAME_WIDTH - SCREEN_WIDTH / 2),
     y: getRandomInteger(SCREEN_HEIGHT / 2, GAME_WIDTH - SCREEN_HEIGHT / 2),
   };
+  const initTailPositions = createTail(INIT_SNAKE_LENGTH, initPosition);
   const newPlayer = {
     id: id,
     name: name,
@@ -23,20 +23,20 @@ export const createNewPlayers = (id: string, name: string) => {
       isAlive: true,
       speed: SNAKE_SPEED,
       position: initPosition,
-      tailPositions: createTail(INIT_SNAKE_SIZE, initPosition),
+      tailPositions: initTailPositions,
       positionCollision: {
-        x: initPosition.x + INIT_SNAKE_SIZE,
+        x: initPosition.x + initTailPositions.length / 5,
         y: initPosition.y,
       },
       style: {
-        // borderColor: 'red',
+        borderColor: COLORS[getRandomInteger(0, COLORS.length - 1)],
         color: COLORS[getRandomInteger(0, COLORS.length - 1)],
-        size: INIT_SNAKE_SIZE,
+        size: initTailPositions.length / 5,
       },
       styleShadow: {
         // borderColor: 'rgba(0,0,0,0.1)',
         color: "rgba(0,0,0,0.1)",
-        size: INIT_SNAKE_SIZE + INIT_SNAKE_SIZE / 9,
+        size: initTailPositions.length / 5 + initTailPositions.length / 5 / 9,
       },
     },
   };

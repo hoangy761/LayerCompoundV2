@@ -18,7 +18,7 @@ export const LINE_WIDTH_WARNING = 10;
 
 //snake
 export const INIT_SNAKE_LENGTH = 100;
-export const INIT_SNAKE_SIZE = 30;
+export const INIT_SNAKE_SIZE = INIT_SNAKE_LENGTH / 5;
 export const EYE_DISTANCE = INIT_SNAKE_SIZE / 1.3;
 export const EYE_ANGLE = 0.8;
 

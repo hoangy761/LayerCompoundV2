@@ -1,4 +1,4 @@
-import { EYE_ANGLE, EYE_DISTANCE } from '../constants';
+import { EYE_ANGLE } from '../constants';
 import { CanvasNameEnum } from '../enums';
 import { IPosition } from '../interfaces';
 import { drawDot, getPointOnCircumference } from '../ultis';
@@ -14,24 +14,24 @@ export class Eye {
   draw() {
     const eyeLeftPos: IPosition = getPointOnCircumference(
       this.snake.position,
-      EYE_DISTANCE * 1.3,
-      this.snake.angle - EYE_ANGLE + 0.25,
+      this.snake.game.attributes.snake.style.size * 1,
+      this.snake.angle - EYE_ANGLE + 0.2,
     );
 
     const eyeRightPos: IPosition = getPointOnCircumference(
       this.snake.position,
-      EYE_DISTANCE * 1.3,
-      this.snake.angle + EYE_ANGLE - 0.25,
+      this.snake.game.attributes.snake.style.size * 1,
+      this.snake.angle + EYE_ANGLE - 0.2,
     );
 
     const scleraLeftPos: IPosition = getPointOnCircumference(
       this.snake.position,
-      this.snake.game.attributes.snake.style.size / 1.3,
+      this.snake.game.attributes.snake.style.size * 0.8,
       this.snake.angle - EYE_ANGLE,
     );
     const scleraRightPos: IPosition = getPointOnCircumference(
       this.snake.position,
-      this.snake.game.attributes.snake.style.size / 1.3,
+      this.snake.game.attributes.snake.style.size * 0.8,
       this.snake.angle + EYE_ANGLE,
     );
 
@@ -69,13 +69,13 @@ export class Eye {
     this.snake.game.attributesOtherSnake.forEach((player) => {
       const eyeLeftPos: IPosition = getPointOnCircumference(
         player.snake.position,
-        EYE_DISTANCE * 1.3,
+        player.snake.style.size,
         player.snake.angle - EYE_ANGLE + 0.25,
       );
 
       const eyeRightPos: IPosition = getPointOnCircumference(
         player.snake.position,
-        EYE_DISTANCE * 1.3,
+        player.snake.style.size,
         player.snake.angle + EYE_ANGLE - 0.25,
       );
 
