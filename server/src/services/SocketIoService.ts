@@ -62,7 +62,7 @@ class SocketIoService {
 
           socket.emit("data_game", dataGame);
           // socket.to(roomId).emit("data_game", dataGame);
-        }, 50);
+        }, 100);
       });
 
       socket.on("mouse_move", (data) => {
