@@ -10,7 +10,7 @@ export const SCREEN_HEIGHT = 500;
 export const MINI_MAP_GAME_WIDTH = GAME_WIDTH / 20;
 // export const MINI_MAP_GAME_HEIGHT = GAME_WIDTH / 20;
 
-export const SNAKE_SPEED = 2;
+export const SNAKE_SPEED = 3;
 
 export const GRID_SIZE = 80;
 

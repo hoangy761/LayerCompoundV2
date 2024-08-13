@@ -47,23 +47,24 @@ class SocketIoService {
             snake: new Snake(newPlayer.snake),
           });
         }
-        setInterval(() => {
-          dataGame.players = dataGame.players.filter((player) => {
-            if (player.snake.isAlive) {
-              player.snake.run();
-              player.snake.eat(dataGame.foods);
-              player.snake.checkDeath();
-              return true; // Keep the player in the array
-            }
-            const newFoods = foodsFromSnakeDead(player.snake);
-            dataGame.foods = dataGame.foods.concat(newFoods);
-            return false; // Remove the player from the array
-          });
-
-          socket.emit("data_game", dataGame);
-          // socket.to(roomId).emit("data_game", dataGame);
-        }, 100);
       });
+
+      setInterval(() => {
+        dataGame.players = dataGame.players.filter((player) => {
+          if (player.snake.isAlive) {
+            player.snake.run();
+            player.snake.eat(dataGame.foods);
+            player.snake.checkDeath();
+            return true; // Keep the player in the array
+          }
+          const newFoods = foodsFromSnakeDead(player.snake);
+          dataGame.foods = dataGame.foods.concat(newFoods);
+          return false; // Remove the player from the array
+        });
+
+        socket.emit("data_game", dataGame);
+        // socket.to(roomId).emit("data_game", dataGame);
+      }, 60);
 
       socket.on("mouse_move", (data) => {
         const { angle, userId } = data;
