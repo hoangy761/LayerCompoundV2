@@ -50,6 +50,8 @@ const GameHome: React.FC<IGameHome> = ({ name, setName, handlePlayGame }) => {
             </Button>
           )}
         </div>
+        {JSON.stringify(import.meta.env.VITE_REACT_APP_SERVER_URL)}
+        {JSON.stringify(import.meta.env)}
       </form>
     </div>
   );
