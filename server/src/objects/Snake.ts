@@ -1,5 +1,6 @@
+import { GAME_WIDTH } from "../constants";
 import { IDot, IPosition, ISnake, IStyle } from "../interfaces";
-import { isEat } from "../utils/game/position";
+import { getPointOnCircumference, isEat } from "../utils/game/position";
 
 export class Snake {
   angle: number;
@@ -31,6 +32,11 @@ export class Snake {
     this.tailPositions.unshift(newTailPosition);
     this.tailPositions.pop();
     this.position = newTailPosition;
+    this.positionCollision = getPointOnCircumference(
+      this.position,
+      this.style.size,
+      this.angle
+    );
   }
 
   eat(_foods: IDot[]) {
@@ -56,6 +62,17 @@ export class Snake {
       };
       this.tailPositions.push(newTailPosition);
       // this.position = newTailPosition;
+    }
+  }
+
+  checkDeath() {
+    if (
+      this.positionCollision.x <= 0 ||
+      this.positionCollision.x >= GAME_WIDTH ||
+      this.positionCollision.y <= 0 ||
+      this.positionCollision.y >= GAME_WIDTH
+    ) {
+      this.isAlive = false;
     }
   }
 }

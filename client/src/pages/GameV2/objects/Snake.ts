@@ -167,12 +167,16 @@ export class Snake {
     }
   }
   drawSnake() {
-    this.drawBody(this.game.attributes.snake);
+    //draw mySnake
+    if (this.game.attributes.snake.isAlive) {
+      this.drawBody(this.game.attributes.snake);
+      this.eye.draw();
+    }
+
     this.game.attributesOtherSnake.forEach((player) => {
       this.drawBody(player.snake);
     });
     // draw eyes
-    this.eye.draw();
     this.eye.drawOtherSnake();
   }
 
