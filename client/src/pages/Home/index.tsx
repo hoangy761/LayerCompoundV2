@@ -10,9 +10,6 @@ const Home = () => {
   const contractAddress = snakeNFT.address;
   const contractABI = snakeNFT.abi;
 
-  // console.log('Contract Address:', contractAddress);
-  // console.log('Contract ABI:', contractABI);
-
   return (
     <div>
       <PageTitle title="LayerC | Home" />

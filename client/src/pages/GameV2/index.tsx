@@ -20,7 +20,6 @@ const GameV2 = () => {
     socket.connect();
     socket.on('data_game', (data) => {
       setGameData(data);
-      console.log(data);
     });
     return () => {
       socket.off('data_game');

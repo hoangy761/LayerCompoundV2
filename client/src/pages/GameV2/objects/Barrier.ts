@@ -39,7 +39,5 @@ export class Barrier {
     );
   }
 
-  draw() {
-    console.log('ddax ve ne 12');
-  }
+  draw() {}
 }
