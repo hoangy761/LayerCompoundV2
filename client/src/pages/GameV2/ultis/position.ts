@@ -1,4 +1,3 @@
-import { INIT_SNAKE_SIZE } from '../constants';
 import { IPosition } from '../interfaces';
 
 export function getPointOnCircumference(centerPos: IPosition, radius: number, angleInDegrees: number): IPosition {
@@ -16,7 +15,7 @@ export function isConllision(pos: IPosition, boundaryX: number, boundaryY: numbe
 }
 
 export function isEat(centerPos: IPosition, radius: number, angleInDegrees: number, foodPos: IPosition): boolean {
-  if (calculateDistance(centerPos, foodPos) <= INIT_SNAKE_SIZE + 10) {
+  if (calculateDistance(centerPos, foodPos) <= radius + 10) {
     return true;
   }
   return false;
