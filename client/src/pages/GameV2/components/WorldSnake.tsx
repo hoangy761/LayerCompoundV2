@@ -9,11 +9,12 @@ import { socket } from '~/services/socket';
 
 interface WorldSnakeProps {
   setIsGameLive: (_parameter: boolean) => void;
+  setIsMouseDown: (_parameter: boolean) => void;
   gameData: IDataRealTime | null;
   setAngle: (_prameter: number) => void;
 }
 
-const WorldSnake: React.FC<WorldSnakeProps> = ({ gameData, setAngle, setIsGameLive }) => {
+const WorldSnake: React.FC<WorldSnakeProps> = ({ gameData, setAngle, setIsGameLive, setIsMouseDown }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const canvasRefMiniMap = useRef<HTMLCanvasElement>(null);
 
@@ -35,6 +36,7 @@ const WorldSnake: React.FC<WorldSnakeProps> = ({ gameData, setAngle, setIsGameLi
     if (canvas && canvasMiniMap && gameData && mySnake) {
       const gameInstance = new Game(canvas, canvasMiniMap, foods, mySnake, otherSnakes);
       gameInstance.start();
+
       canvas.addEventListener('mousemove', (event: MouseEvent) => {
         const rect = canvas?.getBoundingClientRect();
         if (!rect) return { x: 0, y: 0 };
@@ -43,9 +45,35 @@ const WorldSnake: React.FC<WorldSnakeProps> = ({ gameData, setAngle, setIsGameLi
           y: event.clientY - rect.top,
         });
       });
+
+      canvas.addEventListener('mousedown', handleMouseDown.bind(this));
+      canvas.addEventListener('mouseup', handleMouseUp.bind(this));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gameData]);
+
+  document.addEventListener('keydown', handleKeyDown.bind(this));
+  document.addEventListener('keyup', handleKeyUp.bind(this));
+
+  function handleMouseDown() {
+    setIsMouseDown(true);
+  }
+
+  function handleMouseUp() {
+    setIsMouseDown(false);
+  }
+
+  function handleKeyDown(event: KeyboardEvent) {
+    if (event.code === 'Space') {
+      setIsMouseDown(true);
+    }
+  }
+
+  function handleKeyUp(event: KeyboardEvent) {
+    if (event.code === 'Space') {
+      setIsMouseDown(false);
+    }
+  }
 
   function processMouseMove(mousePos: IPosition) {
     const angle = Math.atan2(mousePos.y - SCREEN_HEIGHT / 2, mousePos.x - SCREEN_WIDTH / 2);

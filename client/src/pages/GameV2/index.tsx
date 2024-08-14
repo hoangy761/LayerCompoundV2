@@ -9,6 +9,7 @@ import { useWalletProvider } from '~/hooks/Wallet/useWalletProvider';
 const GameV2 = () => {
   const [name, setName] = useState<string>('');
   const [isGameLive, setIsGameLive] = useState<boolean>(false);
+  const [isMouseDown, setIsMouseDown] = useState<boolean>(false);
   const [gameData, setGameData] = useState<IDataRealTime | null>(null);
   const [angle, setAngle] = useState<number>(0);
 
@@ -32,6 +33,10 @@ const GameV2 = () => {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [angle]);
+
+  useEffect(() => {
+    socket.emit('speed_up', { isMouseDown, userId: selectedAccount });
+  }, [isMouseDown, selectedAccount]);
   const handlePlayGame = () => {
     setIsGameLive(true);
     const userInfor = {
@@ -47,7 +52,12 @@ const GameV2 = () => {
       {!isGameLive ? (
         <GameHome handlePlayGame={handlePlayGame} name={name} setName={setName} />
       ) : (
-        <GamePlay gameData={gameData} setAngle={setAngle} setIsGameLive={setIsGameLive} />
+        <GamePlay
+          gameData={gameData}
+          setAngle={setAngle}
+          setIsGameLive={setIsGameLive}
+          setIsMouseDown={setIsMouseDown}
+        />
       )}
     </>
   );

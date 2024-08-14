@@ -5,10 +5,11 @@ import { IDataRealTime, IUserPoint } from '../interfaces';
 
 interface IGamePlayPros {
   setIsGameLive: (_parameter: boolean) => void;
+  setIsMouseDown: (_parameter: boolean) => void;
   gameData: IDataRealTime | null;
   setAngle: (_prameter: number) => void;
 }
-const GamePlay: React.FC<IGamePlayPros> = ({ gameData, setAngle, setIsGameLive }) => {
+const GamePlay: React.FC<IGamePlayPros> = ({ gameData, setAngle, setIsGameLive, setIsMouseDown }) => {
   const [userPoints, setUserPoints] = useState<IUserPoint[] | null>(null);
   useEffect(() => {
     let dataPoints: IUserPoint[] = [];
@@ -29,7 +30,12 @@ const GamePlay: React.FC<IGamePlayPros> = ({ gameData, setAngle, setIsGameLive }
       <div className="absolute z-40">
         <LeaderBoard userPoints={userPoints} />
       </div>
-      <WorldSnake gameData={gameData} setAngle={setAngle} setIsGameLive={setIsGameLive} />
+      <WorldSnake
+        gameData={gameData}
+        setAngle={setAngle}
+        setIsGameLive={setIsGameLive}
+        setIsMouseDown={setIsMouseDown}
+      />
     </div>
   );
 };

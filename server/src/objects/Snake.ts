@@ -1,8 +1,9 @@
-import { GAME_WIDTH } from "../constants";
+import { GAME_WIDTH, INIT_SNAKE_LENGTH, SNAKE_SPEED } from "../constants";
 import { IDot, IPosition, ISnake, IStyle } from "../interfaces";
 import { getPointOnCircumference, isEat } from "../utils/game/position";
 
 export class Snake {
+  isPeedUP: boolean;
   angle: number;
   tailPositions: IPosition[];
   speed: number;
@@ -20,11 +21,24 @@ export class Snake {
     this.positionCollision = _snake.positionCollision;
     this.style = _snake.style;
     this.styleShadow = _snake.styleShadow;
+    this.isPeedUP = _snake.isSpeedUp || false;
   }
 
   update() {}
 
   run() {
+    if (this.tailPositions.length > INIT_SNAKE_LENGTH) {
+      if (this.isPeedUP) {
+        this.speed = SNAKE_SPEED * 2;
+        this.tailPositions = this.tailPositions.slice(0, -3);
+
+        // this.feces();
+      } else {
+        this.speed = SNAKE_SPEED;
+      }
+    } else {
+      this.speed = SNAKE_SPEED;
+    }
     const newTailPosition = {
       x: this.position.x + Math.cos(this.angle) * this.speed,
       y: this.position.y + Math.sin(this.angle) * this.speed,
@@ -65,6 +79,11 @@ export class Snake {
     }
 
     this.style.size = this.tailPositions.length / 5;
+    this.positionCollision = getPointOnCircumference(
+      this.position,
+      this.style.size,
+      this.angle
+    );
   }
 
   checkDeath() {

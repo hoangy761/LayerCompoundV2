@@ -40,6 +40,7 @@ export interface IUserPoint {
 }
 
 export interface ISnake {
+  isSpeedUp?: boolean;
   angle: number;
   tailPositions: IPosition[];
   speed: number;

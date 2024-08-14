@@ -3,7 +3,7 @@ import { Server as SocketIOServer, Socket } from "socket.io";
 import { Server as HttpServer } from "http";
 import config from "../config/config";
 import { IDataRealTime, IDot } from "../interfaces";
-import { COLORS } from "../constants";
+import { COLORS, SNAKE_SPEED } from "../constants";
 import { createFoods } from "../utils/game/food";
 import { createNewPlayers } from "../utils";
 import { Snake } from "../objects/Snake";
@@ -53,6 +53,14 @@ class SocketIoService {
         const player = dataGame.players.find((player) => player.id === userId);
         if (player) {
           player.snake.angle = angle;
+        }
+      });
+
+      socket.on("speed_up", (data) => {
+        const { isMouseDown, userId } = data;
+        const player = dataGame.players.find((player) => player.id === userId);
+        if (player) {
+          player.snake.isPeedUP = isMouseDown;
         }
       });
       socket.on("out_game", (data) => {
