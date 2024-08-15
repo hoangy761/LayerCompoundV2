@@ -13,7 +13,7 @@ const Home = () => {
   return (
     <div>
       <PageTitle title="LayerC | Home" />
-      <Navigate to="/game-v2" />
+      <Navigate to="/game" />
       {/* <p>Contract Address: {contractAddress}</p>
       <p>Check console for Contract ABI</p> */}
     </div>

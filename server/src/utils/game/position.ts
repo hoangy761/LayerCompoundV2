@@ -43,3 +43,16 @@ export function calculateDistance(
   const dy = endPos.y - startPos.y;
   return Math.sqrt(dx * dx + dy * dy);
 }
+
+export function isPointOutsideCircle(
+  _centerCircle: IPosition,
+  _pos: IPosition,
+  _radius: number
+): boolean {
+  // distance from _pos to Center Circle
+  const distance = Math.sqrt(
+    (_pos.x - _centerCircle.x) ** 2 + (_pos.y - _centerCircle.y) ** 2
+  );
+
+  return distance > _radius;
+}

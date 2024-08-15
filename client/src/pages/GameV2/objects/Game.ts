@@ -99,11 +99,11 @@ export class Game {
 
   draw() {
     this.clearScreen();
-    this.clearGameBackground();
     this.background.draw();
     this.screen.draw();
     this.food.draw();
     this.snake.draw();
     this.miniMap.draw();
+    this.clearGameBackground();
   }
 }

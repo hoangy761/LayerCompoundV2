@@ -151,7 +151,7 @@ export class Snake {
       }
     }
     //draw body
-    for (let index = _snake.tailPositions.length - 1; index >= 0; index -= 3) {
+    for (let index = _snake.tailPositions.length - 1; index >= 0; index -= 4) {
       if (this.game.ctx) {
         drawDot(
           this.game,
