@@ -1,26 +1,36 @@
-import { Background } from './Background';
-import { Barrier } from './Barrier';
 import { GAME_WIDTH, MINI_MAP_GAME_WIDTH, SCREEN_HEIGHT, SCREEN_WIDTH } from '../constants';
+import { IDot, IPlayer } from '../interfaces';
 import { Snake } from './Snake';
 import { Screen } from './Screen';
-import { isConllision } from '../ultis';
-import { MiniMap } from './MiniMap';
+import { Barrier } from './Barrier';
+import { Background } from './Background';
 import { Food } from './Food';
-import { ISnake } from '../interfaces';
+import { MiniMap } from './MiniMap';
 
 export class Game {
   ctx: CanvasRenderingContext2D | null;
   ctxMiniMap: CanvasRenderingContext2D | null;
-  canvas: HTMLCanvasElement | null;
+  canvas: HTMLCanvasElement;
   canvasMiniMap: HTMLCanvasElement | null;
+
+  foods: IDot[];
+
+  attributes: IPlayer;
+  attributesOtherSnake: IPlayer[];
   snake: Snake;
   screen: Screen;
-  background: Background;
   barrier: Barrier;
-  miniMap: MiniMap;
+  background: Background;
   food: Food;
-  snakeInitAttributes: ISnake;
-  constructor(_canvas: HTMLCanvasElement, _canvasMiniMap: HTMLCanvasElement, _snakeInitAttributes: ISnake) {
+  miniMap: MiniMap;
+
+  constructor(
+    _canvas: HTMLCanvasElement,
+    _canvasMiniMap: HTMLCanvasElement,
+    _food: IDot[],
+    mySnake: IPlayer,
+    otherSnakes: IPlayer[],
+  ) {
     this.canvas = _canvas;
     this.canvasMiniMap = _canvasMiniMap;
     this.ctx = this.canvas.getContext('2d');
@@ -29,40 +39,30 @@ export class Game {
     this.canvas.height = GAME_WIDTH;
 
     //snake
-    this.snakeInitAttributes = _snakeInitAttributes;
-
+    this.attributes = mySnake;
+    this.attributesOtherSnake = otherSnakes;
     this.snake = new Snake(this);
+
     //screen
     this.screen = new Screen(this);
-    //background
-    this.background = new Background(this);
+
     //barrier
     this.barrier = new Barrier(this);
-    //miniMap
-    this.miniMap = new MiniMap(this);
+
+    //background
+    this.background = new Background(this);
+
     //food
+    this.foods = _food;
     this.food = new Food(this);
 
-    this.loop();
-    this.food.draw();
-  }
-  getSnakeAttributes() {
-    return this.snakeInitAttributes;
+    //miniMap
+    this.miniMap = new MiniMap(this);
   }
 
-  loop() {
+  start() {
     this.update();
     this.draw();
-    if (isConllision(this.snakeInitAttributes.positionCollision, GAME_WIDTH, GAME_WIDTH)) {
-      this.snakeInitAttributes.isAlive = false;
-      this.food.dead();
-      setTimeout(() => {
-        window.alert('chạm vào vùng FreeFire rôi =((');
-        this.snakeInitAttributes.isAlive = true;
-        this.snake.initSnake();
-      }, 50);
-    }
-    return this.getSnakeAttributes();
   }
 
   clearScreen() {
@@ -90,21 +90,20 @@ export class Game {
   }
 
   update() {
-    this.background.update();
-    this.miniMap.update();
-    this.food.update();
-    this.snake.update();
-    this.screen.update();
+    // this.background.update();
+    // this.miniMap.update();
+    // this.food.update();
+    // this.snake.update();
+    // this.screen.update();
   }
 
   draw() {
     this.clearScreen();
     this.background.draw();
-    this.miniMap.draw();
+    this.screen.draw();
     this.food.draw();
     this.snake.draw();
-    this.screen.update();
-    this.screen.draw();
+    this.miniMap.draw();
     this.clearGameBackground();
   }
 }

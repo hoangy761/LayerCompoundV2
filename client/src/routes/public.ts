@@ -1,6 +1,6 @@
 import React from 'react';
 import GameLayout from '~/layouts/GameLayout';
-import GameV2 from '~/pages/GameV2';
+import Game from '~/pages/Game';
 import Home from '~/pages/Home';
 import Vault from '~/pages/Vault';
 type route = {
@@ -12,7 +12,7 @@ const publicRoutes: route[] = [
   { path: '/', component: Home },
   { path: '/*', component: Home },
   { path: '/vaults', component: Vault },
-  { path: '/game', component: GameV2, layout: GameLayout },
+  { path: '/game', component: Game, layout: GameLayout },
 ];
 
 export default publicRoutes;

@@ -7,20 +7,21 @@ export class Screen {
   position: IPositionRectangle;
   constructor(_game: Game) {
     this.game = _game;
-    this.position = { top: 1, bottom: 1, right: 1, left: 1 };
+    this.position = {
+      top: this.game.snake.position.y - SCREEN_WIDTH / 2,
+      bottom: this.game.snake.position.y + SCREEN_WIDTH / 2,
+      left: this.game.snake.position.x - SCREEN_WIDTH / 2,
+      right: this.game.snake.position.x + SCREEN_WIDTH / 2,
+    };
   }
-  drawBoundary() {
-    this.position.top = this.game.snake.position.y - SCREEN_HEIGHT / 2;
-    this.position.bottom = this.game.snake.position.y + SCREEN_HEIGHT / 2;
-    this.position.left = this.game.snake.position.x - SCREEN_WIDTH / 2;
-    this.position.right = this.game.snake.position.x + SCREEN_WIDTH / 2;
 
+  drawBoundary() {
     if (this.game.snake.position.y - SCREEN_HEIGHT / 2 <= 0) {
       this.game.barrier.drawLineTop(
         SCREEN_HEIGHT / 2 -
           this.game.snake.position.y -
-          this.game.snakeInitAttributes.style.size -
-          this.game.snakeInitAttributes.style.size / 2,
+          this.game.attributes.snake.style.size -
+          this.game.attributes.snake.style.size / 2,
       );
     }
 
@@ -32,8 +33,8 @@ export class Screen {
         this.game.snake.position.y +
           SCREEN_HEIGHT / 2 -
           GAME_WIDTH +
-          this.game.snakeInitAttributes.style.size * 2 -
-          this.game.snakeInitAttributes.style.size / 2,
+          this.game.attributes.snake.style.size * 2 -
+          this.game.attributes.snake.style.size / 2,
       );
     }
     if (this.game.snake.position.x + SCREEN_WIDTH / 2 - GAME_WIDTH >= 0) {
