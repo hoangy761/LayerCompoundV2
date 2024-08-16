@@ -1,7 +1,7 @@
 import { GAME_WIDTH, MINI_MAP_GAME_WIDTH, SCREEN_WIDTH } from '../constants';
 import { CanvasNameEnum } from '../enums';
 import { IDot } from '../interfaces';
-import { Game } from '../objects/Game';
+import { Game } from '../objects';
 
 export function drawDot(game: Game, ctx: CanvasRenderingContext2D, dot: IDot, type: CanvasNameEnum) {
   if (type == CanvasNameEnum.GAME) {

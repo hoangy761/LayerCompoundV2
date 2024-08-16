@@ -3,9 +3,9 @@
 import React, { useEffect, useRef } from 'react';
 import { MINI_MAP_GAME_WIDTH, SCREEN_HEIGHT, SCREEN_WIDTH } from '../constants';
 import { IDataRealTime, IPosition } from '../interfaces';
-import { Game } from '../objects';
 import { useWalletProvider } from '~/hooks/Wallet/useWalletProvider';
 import { socket } from '~/services/socket';
+import { Game } from '../objects';
 
 interface WorldSnakeProps {
   setIsGameLive: (_parameter: boolean) => void;
